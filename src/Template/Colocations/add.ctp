@@ -1,0 +1,40 @@
+
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('List Colocations'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<?php
+     echo $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
+    echo $this->Html->script('scripts');
+     ?>
+<div class="colocations form large-9 medium-8 columns content">
+     
+    <?= $this->Form->create($colocation) ?>
+    <fieldset>
+        <legend><?= __('Add Colocation') ?></legend>
+        <?php
+
+            echo $this->Form->control('customer_id', ['options' => $customers]);
+            echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc']);
+            echo $this->Form->control('rack_id',['options' => $racks,'id'=>'rac']);
+            echo $this->Form->control('shelf');
+            echo $this->Form->control('he');
+            echo $this->Form->control('total_he');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+</div>
