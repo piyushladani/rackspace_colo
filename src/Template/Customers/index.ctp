@@ -19,7 +19,7 @@
   
    echo $this->Form->create(null, [
     'url' => ['controller' => 'Customers', 'action' => 'search']]);
-   echo $this->Form->control('search customer');
+   echo $this->Form->control('search customer',['placeholder'=>'Enter customer name or number']);
    echo $this->Form->submit('Search');
    echo $this->Form->end();
 ?><br>

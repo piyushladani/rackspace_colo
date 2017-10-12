@@ -28,9 +28,9 @@
         <?php
 
             echo $this->Form->control('customer_id', ['options' => $customers]);
-            echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc']);
-            echo $this->Form->control('rack_id',['options' => $racks,'id'=>'rac']);
-            echo $this->Form->control('shelf');
+            echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc','empty' => '-Select Location-']);
+            echo $this->Form->control('rack_id',['options' => $racks,'onchange'=>'selectShelf()','id'=>'rac','empty' => '-Select Rack-']);
+            echo $this->Form->control('shelf',['options' => $shelfs,'id'=>'shelf']);
             echo $this->Form->control('he');
             echo $this->Form->control('total_he');
         ?>

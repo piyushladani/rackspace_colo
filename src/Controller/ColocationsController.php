@@ -65,12 +65,15 @@ class ColocationsController extends AppController
         }
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
-        $racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
-        $this->set(compact('colocation', 'customers', 'locations', 'racks'));
+        #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
+        #$shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
+        $racks=null;
+        $shelfs=array(null);
+        $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs'));
         $this->set('_serialize', ['colocation']);
     }
-    
-    public function getdata()
+
+    public function getrack()
     {
         $location = (int)$this->request->getQuery('location');
         
@@ -78,6 +81,21 @@ class ColocationsController extends AppController
 
         $this->set('_jsonOptions', JSON_FORCE_OBJECT);
         $groups=$this->Colocations->Racks->find('list',['conditions'=>['Racks.location_id'=> $location]]);
+        $this->set(compact('groups'));
+        $this->set('_serialize', ['groups']);
+
+        $this->render(false);
+
+    }
+
+    public function getshelf()
+    {
+        $location = (int)$this->request->getQuery('location');
+        
+        $this->viewBuilder()->className('Json');
+
+        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
+        $groups=$this->Colocations->Shelfs->find('list',['conditions'=>['Shelfs.rack_id'=> $location]]);
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
 
