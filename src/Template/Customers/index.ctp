@@ -22,7 +22,7 @@
    echo $this->Form->control('search customer');
    echo $this->Form->submit('Search');
    echo $this->Form->end();
-?>
+?><br>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
