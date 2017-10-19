@@ -10,13 +10,14 @@ use Cake\ORM\Entity;
  * @property int $customer_id
  * @property string $location_id
  * @property string $rack_id
+ * @property int $shelf_id
  * @property int $he
- * @property int $total_he
+ * @property int $user_id
  *
  * @property \App\Model\Entity\Customer $customer
  * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\Rack $rack
- * @property \App\Model\Entity\Shelf[] $shelfs
+ * @property \App\Model\Entity\Shelf $shelf
  */
 class Colocation extends Entity
 {
@@ -34,11 +35,12 @@ class Colocation extends Entity
         'customer_id' => true,
         'location_id' => true,
         'rack_id' => true,
+        'shelf_id' => true,
         'he' => true,
-        'total_he' => true,
+        'user_id' => true,
         'customer' => true,
         'location' => true,
         'rack' => true,
-        'shelfs' => true
+        'shelf' => true
     ];
 }

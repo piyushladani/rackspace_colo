@@ -14,15 +14,6 @@
 </nav>
 <div class="customers index large-9 medium-8 columns content">
     <h3><?= __('Customers') ?></h3>
-    
-    <?php
-  
-   echo $this->Form->create(null, [
-    'url' => ['controller' => 'Customers', 'action' => 'search']]);
-   echo $this->Form->control('search customer',['placeholder'=>'Enter customer name or number']);
-   echo $this->Form->submit('Search');
-   echo $this->Form->end();
-?><br>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

@@ -13,10 +13,11 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Welcome to DE-CIX Colocation';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,12 +29,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('my1.css') ?>
+    
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
+
+<h2 align="center" ><a href="http://localhost:8888/colocation/colocation-app/colocations">DE-CIX Colocation</a></h2>
+    
+ <div class="myview">   
+    <?php if($loggedIn):?>
+    <?= $this->Html->image("logo".$this->request->session()->read('imgrandd').".png", array('width'=>'85px'),['fullBase' => true]);?>
+    <?= "Welcome to ".$Houses[$this->request->session()->read('imgrandd')]. ", ".$this->request->session()->read('Auth.User.name'). " !" ?>
+    <?php endif;?>
+</div>
+
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
@@ -42,8 +55,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
+                <?php if($loggedIn):?>
+                <li><?= $this->Html->link('Logout', ['controller'=>'users','action'=>'logout']);?></li>
+                <?php else: ?>
+                <li><?= $this->Html->link('Register', ['controller'=>'users','action'=>'register']);?></li>
+                <li><?= $this->Html->link('Login', ['controller'=>'users','action'=>'login']);?></li>
+                <?php endif;?>
             </ul>
         </div>
     </nav>

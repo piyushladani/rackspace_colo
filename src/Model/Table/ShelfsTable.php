@@ -9,8 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Shelfs Model
  *
+ * @property \App\Model\Table\LocationsTable|\Cake\ORM\Association\BelongsTo $Locations
  * @property \App\Model\Table\RacksTable|\Cake\ORM\Association\BelongsTo $Racks
- * @property \App\Model\Table\ColocationsTable|\Cake\ORM\Association\BelongsTo $Colocations
+ * @property \App\Model\Table\ColocationsTable|\Cake\ORM\Association\HasMany $Colocations
  *
  * @method \App\Model\Entity\Shelf get($primaryKey, $options = [])
  * @method \App\Model\Entity\Shelf newEntity($data = null, array $options = [])
@@ -34,16 +35,19 @@ class ShelfsTable extends Table
         parent::initialize($config);
 
         $this->setTable('shelfs');
-        $this->setDisplayField('id');
+        $this->setDisplayField('number');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Locations', [
+            'foreignKey' => 'location_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Racks', [
             'foreignKey' => 'rack_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Colocations', [
-            'foreignKey' => 'colocation_id',
-            'joinType' => 'INNER'
+        $this->hasMany('Colocations', [
+            'foreignKey' => 'shelf_id'
         ]);
     }
 
@@ -60,9 +64,19 @@ class ShelfsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->integer('number')
+            ->requirePresence('number', 'create')
+            ->notEmpty('number');
+
+        $validator
             ->integer('he')
             ->requirePresence('he', 'create')
             ->notEmpty('he');
+
+        $validator
+            ->scalar('free')
+            ->requirePresence('free', 'create')
+            ->notEmpty('free');
 
         return $validator;
     }
@@ -76,8 +90,8 @@ class ShelfsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['location_id'], 'Locations'));
         $rules->add($rules->existsIn(['rack_id'], 'Racks'));
-        $rules->add($rules->existsIn(['colocation_id'], 'Colocations'));
 
         return $rules;
     }

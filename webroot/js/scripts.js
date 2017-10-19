@@ -46,12 +46,15 @@ function selectRack(){
                 
                 var json = JSON.parse(request.responseText);
                 
-                
                 html = "";
+
             for(var key in json['groups']) {
             html += "<option value=" + key  + ">" +json['groups'][key] + "</option>"
             
         }
+                
+                
+        console.log('hi');
 
         document.getElementById("shelf").innerHTML = html;
 

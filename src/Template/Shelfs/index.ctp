@@ -8,6 +8,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Shelf'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
@@ -20,9 +22,11 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('number') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('he') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('free') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('colocation_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -30,9 +34,11 @@
             <?php foreach ($shelfs as $shelf): ?>
             <tr>
                 <td><?= $this->Number->format($shelf->id) ?></td>
+                <td><?= $this->Number->format($shelf->number) ?></td>
                 <td><?= $this->Number->format($shelf->he) ?></td>
+                <td><?= h($shelf->free) ?></td>
+                <td><?= $shelf->has('location') ? $this->Html->link($shelf->location->name, ['controller' => 'Locations', 'action' => 'view', $shelf->location->id]) : '' ?></td>
                 <td><?= $shelf->has('rack') ? $this->Html->link($shelf->rack->name, ['controller' => 'Racks', 'action' => 'view', $shelf->rack->id]) : '' ?></td>
-                <td><?= $shelf->has('colocation') ? $this->Html->link($shelf->colocation->id, ['controller' => 'Colocations', 'action' => 'view', $shelf->colocation->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $shelf->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $shelf->id]) ?>

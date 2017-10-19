@@ -9,6 +9,8 @@
         <li><?= $this->Html->link(__('List Racks'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
     </ul>
@@ -19,6 +21,7 @@
         <legend><?= __('Add Rack') ?></legend>
         <?php
             echo $this->Form->control('name');
+            echo $this->Form->control('free');
             echo $this->Form->control('location_id', ['options' => $locations]);
         ?>
     </fieldset>

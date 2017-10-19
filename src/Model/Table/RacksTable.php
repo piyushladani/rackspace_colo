@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Racks Model
  *
  * @property \App\Model\Table\LocationsTable|\Cake\ORM\Association\BelongsTo $Locations
- * @property |\Cake\ORM\Association\HasMany $Colocations
+ * @property \App\Model\Table\ColocationsTable|\Cake\ORM\Association\HasMany $Colocations
  * @property \App\Model\Table\ShelfsTable|\Cake\ORM\Association\HasMany $Shelfs
  *
  * @method \App\Model\Entity\Rack get($primaryKey, $options = [])
@@ -66,6 +66,11 @@ class RacksTable extends Table
             ->scalar('name')
             ->requirePresence('name', 'create')
             ->notEmpty('name');
+
+        $validator
+            ->scalar('free')
+            ->requirePresence('free', 'create')
+            ->notEmpty('free');
 
         return $validator;
     }

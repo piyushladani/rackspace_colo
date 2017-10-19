@@ -12,7 +12,8 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\CustomersTable|\Cake\ORM\Association\BelongsTo $Customers
  * @property \App\Model\Table\LocationsTable|\Cake\ORM\Association\BelongsTo $Locations
  * @property \App\Model\Table\RacksTable|\Cake\ORM\Association\BelongsTo $Racks
- * @property \App\Model\Table\ShelfsTable|\Cake\ORM\Association\HasMany $Shelfs
+ * @property |\Cake\ORM\Association\BelongsTo $Shelves
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \App\Model\Entity\Colocation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Colocation newEntity($data = null, array $options = [])
@@ -51,8 +52,13 @@ class ColocationsTable extends Table
             'foreignKey' => 'rack_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('Shelfs', [
-            'foreignKey' => 'colocation_id'
+        $this->belongsTo('Shelfs', [
+            'foreignKey' => 'shelf_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -73,11 +79,6 @@ class ColocationsTable extends Table
             ->requirePresence('he', 'create')
             ->notEmpty('he');
 
-        $validator
-            ->integer('total_he')
-            ->requirePresence('total_he', 'create')
-            ->notEmpty('total_he');
-
         return $validator;
     }
 
@@ -93,6 +94,8 @@ class ColocationsTable extends Table
         $rules->add($rules->existsIn(['customer_id'], 'Customers'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
         $rules->add($rules->existsIn(['rack_id'], 'Racks'));
+        $rules->add($rules->existsIn(['shelf_id'], 'Shelfs'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
     }

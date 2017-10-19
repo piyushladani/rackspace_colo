@@ -28,7 +28,8 @@ class RacksTableTest extends TestCase
         'app.locations',
         'app.colocations',
         'app.customers',
-        'app.shelfs'
+        'app.shelfs',
+        'app.users'
     ];
 
     /**

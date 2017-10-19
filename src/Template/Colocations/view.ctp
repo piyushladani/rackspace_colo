@@ -37,6 +37,10 @@
             <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Shelf') ?></th>
+            <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($colocation->id) ?></td>
         </tr>
@@ -45,35 +49,8 @@
             <td><?= $this->Number->format($colocation->he) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Total He') ?></th>
-            <td><?= $this->Number->format($colocation->total_he) ?></td>
+            <th scope="row"><?= __('User Id') ?></th>
+            <td><?= $this->Number->format($colocation->user_id) ?></td>
         </tr>
     </table>
-    <div class="related">
-        <h4><?= __('Related Shelfs') ?></h4>
-        <?php if (!empty($colocation->shelfs)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('He') ?></th>
-                <th scope="col"><?= __('Rack Id') ?></th>
-                <th scope="col"><?= __('Colocation Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($colocation->shelfs as $shelfs): ?>
-            <tr>
-                <td><?= h($shelfs->id) ?></td>
-                <td><?= h($shelfs->he) ?></td>
-                <td><?= h($shelfs->rack_id) ?></td>
-                <td><?= h($shelfs->colocation_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Shelfs', 'action' => 'view', $shelfs->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Shelfs', 'action' => 'edit', $shelfs->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Shelfs', 'action' => 'delete', $shelfs->id], ['confirm' => __('Are you sure you want to delete # {0}?', $shelfs->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
 </div>

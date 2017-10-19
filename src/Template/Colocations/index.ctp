@@ -20,7 +20,6 @@
 </nav>
 <div class="colocations index large-9 medium-8 columns content">
     <h3><?= __('Colocations') ?></h3>
-
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -28,8 +27,9 @@
                 <th scope="col"><?= $this->Paginator->sort('customer_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('shelf_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('he') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('total_he') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -40,8 +40,9 @@
                 <td><?= $colocation->has('customer') ? $this->Html->link($colocation->customer->name, ['controller' => 'Customers', 'action' => 'view', $colocation->customer->id]) : '' ?></td>
                 <td><?= $colocation->has('location') ? $this->Html->link($colocation->location->name, ['controller' => 'Locations', 'action' => 'view', $colocation->location->id]) : '' ?></td>
                 <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
+                <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
                 <td><?= $this->Number->format($colocation->he) ?></td>
-                <td><?= $this->Number->format($colocation->total_he) ?></td>
+                <td><?= $this->Number->format($colocation->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>

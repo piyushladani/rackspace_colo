@@ -21,7 +21,7 @@ class ShelfsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Racks', 'Colocations']
+            'contain' => ['Locations', 'Racks']
         ];
         $shelfs = $this->paginate($this->Shelfs);
 
@@ -39,7 +39,7 @@ class ShelfsController extends AppController
     public function view($id = null)
     {
         $shelf = $this->Shelfs->get($id, [
-            'contain' => ['Racks', 'Colocations']
+            'contain' => ['Locations', 'Racks', 'Colocations']
         ]);
 
         $this->set('shelf', $shelf);
@@ -63,9 +63,9 @@ class ShelfsController extends AppController
             }
             $this->Flash->error(__('The shelf could not be saved. Please, try again.'));
         }
+        $locations = $this->Shelfs->Locations->find('list', ['limit' => 200]);
         $racks = $this->Shelfs->Racks->find('list', ['limit' => 200]);
-        $colocations = $this->Shelfs->Colocations->find('list', ['limit' => 200]);
-        $this->set(compact('shelf', 'racks', 'colocations'));
+        $this->set(compact('shelf', 'locations', 'racks'));
         $this->set('_serialize', ['shelf']);
     }
 
@@ -90,9 +90,9 @@ class ShelfsController extends AppController
             }
             $this->Flash->error(__('The shelf could not be saved. Please, try again.'));
         }
+        $locations = $this->Shelfs->Locations->find('list', ['limit' => 200]);
         $racks = $this->Shelfs->Racks->find('list', ['limit' => 200]);
-        $colocations = $this->Shelfs->Colocations->find('list', ['limit' => 200]);
-        $this->set(compact('shelf', 'racks', 'colocations'));
+        $this->set(compact('shelf', 'locations', 'racks'));
         $this->set('_serialize', ['shelf']);
     }
 

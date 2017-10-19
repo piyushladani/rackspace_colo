@@ -39,7 +39,7 @@ class RacksController extends AppController
     public function view($id = null)
     {
         $rack = $this->Racks->get($id, [
-            'contain' => ['Locations', 'Shelfs']
+            'contain' => ['Locations', 'Colocations', 'Shelfs']
         ]);
 
         $this->set('rack', $rack);

@@ -13,6 +13,8 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Shelfs'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
@@ -24,9 +26,11 @@
     <fieldset>
         <legend><?= __('Edit Shelf') ?></legend>
         <?php
+            echo $this->Form->control('number');
             echo $this->Form->control('he');
+            echo $this->Form->control('free');
+            echo $this->Form->control('location_id', ['options' => $locations]);
             echo $this->Form->control('rack_id', ['options' => $racks]);
-            echo $this->Form->control('colocation_id', ['options' => $colocations]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

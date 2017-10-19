@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ColocationsTable|\Cake\ORM\Association\HasMany $Colocations
  * @property \App\Model\Table\RacksTable|\Cake\ORM\Association\HasMany $Racks
+ * @property |\Cake\ORM\Association\HasMany $Shelfs
  *
  * @method \App\Model\Entity\Location get($primaryKey, $options = [])
  * @method \App\Model\Entity\Location newEntity($data = null, array $options = [])
@@ -41,6 +42,9 @@ class LocationsTable extends Table
             'foreignKey' => 'location_id'
         ]);
         $this->hasMany('Racks', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Shelfs', [
             'foreignKey' => 'location_id'
         ]);
     }

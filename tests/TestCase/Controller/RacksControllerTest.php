@@ -20,7 +20,8 @@ class RacksControllerTest extends IntegrationTestCase
         'app.locations',
         'app.colocations',
         'app.customers',
-        'app.shelfs'
+        'app.shelfs',
+        'app.users'
     ];
 
     /**

@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -44,6 +45,20 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Paginator');
+        $this->loadComponent('Auth', [
+            'authenticate'=>[
+                'Form'=>[
+                    'fields'=>[
+                        'username'=>'username',
+                        'password'=>'password'
+                        ]
+                    ]
+            ],
+            'loginAction'=>[
+                'controller'=>'Users',
+                'action'=>'login'
+            ]
+            ]);
         
 
         /*
@@ -70,5 +85,31 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+         //Login Check
+        if($this->request->session()->read('Auth.User')){
+            $this->set('Houses', [
+    '1' => 'House Targaryen',
+    '2' => 'House Tully',
+    '3' => 'House Lannister',
+    '4' => 'House Stark',
+    '5' => 'Brotherhood Without Banners',
+    '6' => 'House Tyrell',
+    '7' => 'House Greyjoy',
+    '8' => 'House Bolton',
+    '9' => 'House Arryn',
+    '10' => 'House Baratheon',
+    '11' => 'House Martell',
+    '12' => 'House Frey',
+    '13' => 'House Mormont'
+]);
+            $this->set('loggedIn',true);
+
+        }else{
+            $this->set('loggedIn',false);
+        }
+
+
     }
+    
+    
 }

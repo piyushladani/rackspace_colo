@@ -7,12 +7,15 @@ use Cake\ORM\Entity;
  * Shelf Entity
  *
  * @property int $id
+ * @property int $number
  * @property int $he
+ * @property string $free
+ * @property int $location_id
  * @property int $rack_id
- * @property int $colocation_id
  *
+ * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\Rack $rack
- * @property \App\Model\Entity\Colocation $colocation
+ * @property \App\Model\Entity\Colocation[] $colocations
  */
 class Shelf extends Entity
 {
@@ -27,10 +30,13 @@ class Shelf extends Entity
      * @var array
      */
     protected $_accessible = [
+        'number' => true,
         'he' => true,
+        'free' => true,
+        'location_id' => true,
         'rack_id' => true,
-        'colocation_id' => true,
+        'location' => true,
         'rack' => true,
-        'colocation' => true
+        'colocations' => true
     ];
 }

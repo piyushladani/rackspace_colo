@@ -31,8 +31,9 @@
             echo $this->Form->control('customer_id', ['options' => $customers]);
             echo $this->Form->control('location_id', ['options' => $locations]);
             echo $this->Form->control('rack_id', ['options' => $racks]);
+            echo $this->Form->control('shelf_id', ['options' => $shelfs]);
             echo $this->Form->control('he');
-            echo $this->Form->control('total_he');
+            echo $this->Form->control('user_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

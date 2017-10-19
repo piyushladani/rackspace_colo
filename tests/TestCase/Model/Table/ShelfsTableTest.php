@@ -25,10 +25,12 @@ class ShelfsTableTest extends TestCase
      */
     public $fixtures = [
         'app.shelfs',
-        'app.racks',
         'app.locations',
         'app.colocations',
-        'app.customers'
+        'app.customers',
+        'app.racks',
+        'app.shelves',
+        'app.users'
     ];
 
     /**

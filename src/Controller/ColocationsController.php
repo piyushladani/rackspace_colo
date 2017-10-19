@@ -21,7 +21,7 @@ class ColocationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Customers', 'Locations', 'Racks']
+            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs', 'Users']
         ];
         $colocations = $this->paginate($this->Colocations);
 
@@ -39,7 +39,7 @@ class ColocationsController extends AppController
     public function view($id = null)
     {
         $colocation = $this->Colocations->get($id, [
-            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs']
+            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs', 'Users']
         ]);
 
         $this->set('colocation', $colocation);
@@ -56,6 +56,17 @@ class ColocationsController extends AppController
         $colocation = $this->Colocations->newEntity();
         if ($this->request->is('post')) {
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
+            $this->loadModel('Shelfs');
+
+           $this->Shelfs->updateAll(
+    array( 'Shelfs.free' => 'no'), 
+    array(
+        'Shelfs.id' => $colocation->shelf_id,
+        
+        
+    )
+);
+           
             if ($this->Colocations->save($colocation)) {
                 $this->Flash->success(__('The colocation has been saved.'));
 
@@ -63,44 +74,19 @@ class ColocationsController extends AppController
             }
             $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
         }
+    
+
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
         #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
         #$shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
         $racks=null;
-        $shelfs=array(null);
-        $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs'));
+        $shelfs=null;
+        $users = $this->request->session()->read('Auth.User.name');
+
+        #$users = $this->request->session()->read('Users.name');
+        $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs','users'));
         $this->set('_serialize', ['colocation']);
-    }
-
-    public function getrack()
-    {
-        $location = (int)$this->request->getQuery('location');
-        
-        $this->viewBuilder()->className('Json');
-
-        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
-        $groups=$this->Colocations->Racks->find('list',['conditions'=>['Racks.location_id'=> $location]]);
-        $this->set(compact('groups'));
-        $this->set('_serialize', ['groups']);
-
-        $this->render(false);
-
-    }
-
-    public function getshelf()
-    {
-        $location = (int)$this->request->getQuery('location');
-        
-        $this->viewBuilder()->className('Json');
-
-        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
-        $groups=$this->Colocations->Shelfs->find('list',['conditions'=>['Shelfs.rack_id'=> $location]]);
-        $this->set(compact('groups'));
-        $this->set('_serialize', ['groups']);
-
-        $this->render(false);
-
     }
 
     /**
@@ -126,9 +112,39 @@ class ColocationsController extends AppController
         }
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
-        $racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
-        $this->set(compact('colocation', 'customers', 'locations', 'racks'));
+        #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
+        #$shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
+        $racks=null;
+        $shelfs=null;
+        $users = $this->Colocations->Users->find('list', ['limit' => 200]);
+        $this->set(compact('colocation', 'customers', 'locations', 'racks', 'shelfs', 'users'));
         $this->set('_serialize', ['colocation']);
+    }
+
+    public function getrack()
+    {
+        $location = (int)$this->request->getQuery('location');
+        
+        $this->viewBuilder()->className('Json');
+        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
+        $this->loadModel('Racks');
+        $groups=$this->Racks->find('list',['conditions'=>['Racks.location_id'=> $location]]);
+        $this->set(compact('groups'));
+        $this->set('_serialize', ['groups']);
+        $this->render(false);
+    }
+    
+    public function getshelf()
+    {
+        $loc = (int)$this->request->getQuery('location');
+        
+        $this->viewBuilder()->className('Json');
+        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
+        $this->loadModel('Shelfs');
+        $groups=$this->Shelfs->find('list',['conditions'=>array('Shelfs.rack_id'=> $loc,'Shelfs.free'=> 'yes')]);
+        $this->set(compact('groups'));
+        $this->set('_serialize', ['groups']);
+        $this->render(false);
     }
 
     /**

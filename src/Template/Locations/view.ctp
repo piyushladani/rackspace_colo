@@ -38,8 +38,9 @@
                 <th scope="col"><?= __('Customer Id') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
                 <th scope="col"><?= __('Rack Id') ?></th>
+                <th scope="col"><?= __('Shelf Id') ?></th>
                 <th scope="col"><?= __('He') ?></th>
-                <th scope="col"><?= __('Total He') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($location->colocations as $colocations): ?>
@@ -48,8 +49,9 @@
                 <td><?= h($colocations->customer_id) ?></td>
                 <td><?= h($colocations->location_id) ?></td>
                 <td><?= h($colocations->rack_id) ?></td>
+                <td><?= h($colocations->shelf_id) ?></td>
                 <td><?= h($colocations->he) ?></td>
-                <td><?= h($colocations->total_he) ?></td>
+                <td><?= h($colocations->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Colocations', 'action' => 'view', $colocations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Colocations', 'action' => 'edit', $colocations->id]) ?>
