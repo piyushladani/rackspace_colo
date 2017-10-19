@@ -43,6 +43,32 @@ class CustomersController extends AppController
         $this->set('_serialize', ['customer']);
     }
 
+    public function search()
+ {
+    if ($this->request->is('post'))
+   {
+    
+      if(!empty($this->request->data) && isset($this->request->data) )
+      {
+         $search_key=$this->request->data["search_customer"];
+         #$connection = ConnectionManager::get('default');
+         #$results = $connection->execute("SELECT * FROM customers WHERE name LIKE '$search_key' " )->fetchAll('assoc');
+         $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
+         $conditions[] = array(
+         "OR" => array(
+           "Customers.name LIKE" => "%".$search_key."%",
+           "Customers.number LIKE" => "%".$search_key."%"  )
+          );
+      }
+   }
+ 
+ 
+   
+   $this->set('customers', $this->paginate($results));
+ 
+  $this->render('/Customers/index');
+ }
+
     /**
      * Add method
      *

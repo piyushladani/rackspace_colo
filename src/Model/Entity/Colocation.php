@@ -12,8 +12,8 @@ use Cake\ORM\Entity;
  * @property string $rack_id
  * @property int $shelf_id
  * @property int $he
- * @property int $user_id
  *
+ * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Customer $customer
  * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\Rack $rack
@@ -37,7 +37,7 @@ class Colocation extends Entity
         'rack_id' => true,
         'shelf_id' => true,
         'he' => true,
-        'user_id' => true,
+        'user' => true,
         'customer' => true,
         'location' => true,
         'rack' => true,

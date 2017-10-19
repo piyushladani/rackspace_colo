@@ -21,7 +21,7 @@ class ColocationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs', 'Users']
+            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs']
         ];
         $colocations = $this->paginate($this->Colocations);
 
@@ -39,7 +39,7 @@ class ColocationsController extends AppController
     public function view($id = null)
     {
         $colocation = $this->Colocations->get($id, [
-            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs', 'Users']
+            'contain' => ['Customers', 'Locations', 'Racks', 'Shelfs']
         ]);
 
         $this->set('colocation', $colocation);
@@ -51,13 +51,13 @@ class ColocationsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
+
     public function add()
     {
         $colocation = $this->Colocations->newEntity();
         if ($this->request->is('post')) {
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
             $this->loadModel('Shelfs');
-
            $this->Shelfs->updateAll(
     array( 'Shelfs.free' => 'no'), 
     array(
@@ -69,13 +69,11 @@ class ColocationsController extends AppController
            
             if ($this->Colocations->save($colocation)) {
                 $this->Flash->success(__('The colocation has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
         }
     
-
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
         #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
@@ -83,41 +81,8 @@ class ColocationsController extends AppController
         $racks=null;
         $shelfs=null;
         $users = $this->request->session()->read('Auth.User.name');
-
         #$users = $this->request->session()->read('Users.name');
         $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs','users'));
-        $this->set('_serialize', ['colocation']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Colocation id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $colocation = $this->Colocations->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
-            if ($this->Colocations->save($colocation)) {
-                $this->Flash->success(__('The colocation has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
-        }
-        $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
-        $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
-        #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
-        #$shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
-        $racks=null;
-        $shelfs=null;
-        $users = $this->Colocations->Users->find('list', ['limit' => 200]);
-        $this->set(compact('colocation', 'customers', 'locations', 'racks', 'shelfs', 'users'));
         $this->set('_serialize', ['colocation']);
     }
 
@@ -145,6 +110,35 @@ class ColocationsController extends AppController
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
         $this->render(false);
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Colocation id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $colocation = $this->Colocations->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
+            if ($this->Colocations->save($colocation)) {
+                $this->Flash->success(__('The colocation has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
+        }
+        $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
+        $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
+        $racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
+        $shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
+        $this->set(compact('colocation', 'customers', 'locations', 'racks', 'shelfs'));
+        $this->set('_serialize', ['colocation']);
     }
 
     /**

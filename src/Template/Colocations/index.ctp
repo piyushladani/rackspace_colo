@@ -16,6 +16,8 @@
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="colocations index large-9 medium-8 columns content">
@@ -29,7 +31,7 @@
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('shelf_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('he') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -42,7 +44,7 @@
                 <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
                 <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
                 <td><?= $this->Number->format($colocation->he) ?></td>
-                <td><?= $this->Number->format($colocation->user_id) ?></td>
+                <td><?= h($colocation->user) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>

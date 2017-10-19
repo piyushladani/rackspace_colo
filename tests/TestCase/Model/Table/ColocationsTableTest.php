@@ -28,7 +28,8 @@ class ColocationsTableTest extends TestCase
         'app.customers',
         'app.locations',
         'app.racks',
-        'app.shelfs'
+        'app.shelfs',
+        'app.users'
     ];
 
     /**
