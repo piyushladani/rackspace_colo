@@ -59,7 +59,7 @@ class CustomersTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->integer('number')
+            ->scalar('number')
             ->requirePresence('number', 'create')
             ->notEmpty('number');
 

@@ -11,6 +11,8 @@
         <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="locations form large-9 medium-8 columns content">
@@ -19,6 +21,7 @@
         <legend><?= __('Add Location') ?></legend>
         <?php
             echo $this->Form->control('name');
+            echo $this->Form->control('address');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

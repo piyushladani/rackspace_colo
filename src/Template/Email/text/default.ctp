@@ -12,5 +12,7 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 echo $content;
+echo "We have received a request to reset your password. In order to reset your password you will need to click on the link at the bottom of this email. This will take you back to the secure website where you will be able to enter a new password.\n
+If you cannot click on the link you should copy and paste it into your browser. \n
+For your protection this link will only be valid for a limited time.\n\n ".$data."\n\nCustomer Service,\nsupport@de-cix.net";

@@ -3,15 +3,16 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 use Cake\Auth\DefaultPasswordHasher;
+
 /**
  * User Entity
  *
  * @property int $id
  * @property string $name
+ * @property string $email
  * @property string $username
  * @property string $password
- *
- * @property \App\Model\Entity\Colocation[] $colocations
+ * @property string $password_reset_token
  */
 class User extends Entity
 {
@@ -27,8 +28,10 @@ class User extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'email' => true,
         'username' => true,
-        'password' => true
+        'password' => true,
+        'password_reset_token' => true
     ];
 
     /**

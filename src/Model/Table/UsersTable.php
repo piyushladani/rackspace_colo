@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \App\Model\Table\ColocationsTable|\Cake\ORM\Association\HasMany $Colocations
- *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -35,7 +33,6 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
     }
 
     /**
@@ -56,6 +53,11 @@ class UsersTable extends Table
             ->notEmpty('name');
 
         $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmpty('email');
+
+        $validator
             ->scalar('username')
             ->requirePresence('username', 'create')
             ->notEmpty('username');
@@ -69,6 +71,8 @@ class UsersTable extends Table
             ->scalar('confirm_password')
             ->requirePresence('confirm_password', 'create')
             ->notEmpty('confirm_password');
+
+
         $validator
             ->add('confirm_password',[
                 'compare' => [
@@ -77,8 +81,67 @@ class UsersTable extends Table
                 ]
                 ]);
 
+
+        $validator
+            ->scalar('password_reset_token')
+            ->requirePresence('password_reset_token', 'create')
+            ->notEmpty('password_reset_token');
+
         return $validator;
     }
+
+   public function validationPassword(Validator $validator)
+    {
+        $validator
+                ->add('old_password','custom',[
+                    'rule' => function($value, $context){
+                        $user = $this->get($context['data']['id']);
+                        if($user)
+                        {
+                            if((new CakeAuthDefaultPasswordHasher)->check($value, $user->password))
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    },
+                    'message' => 'Your old password does not match the entered password!',
+                ])
+                ->notEmpty('old_password');
+        
+        $validator
+                ->add('new_password',[
+                    'length' => [
+                        'rule' => ['minLength',4],
+                        'message' => 'Please enter atleast 4 characters in password your password.'
+                    ]
+                ])
+                ->add('new_password',[
+                    'match' => [
+                        'rule' => ['compareWith','confirm_password'],
+                        'message' => 'Sorry! Password dose not match. Please try again!'
+                    ]
+                ])
+                ->notEmpty('new_password');
+        
+        $validator
+                ->add('confirm_password',[
+                    'length' => [
+                        'rule' => ['minLength',4],
+                        'message' => 'Please enter atleast 4 characters in password your password.'
+                    ]
+                ])
+                ->add('confirm_password',[
+                    'match' => [
+                        'rule' => ['compareWith','new_password'],
+                        'message' => 'Sorry! Password dose not match. Please try again!'
+                    ]
+                ])
+                ->notEmpty('confirm_password');
+        
+        return $validator;
+    }
+
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -89,6 +152,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['username']));
 
         return $rules;

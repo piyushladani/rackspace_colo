@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\Mailer\MailerAwareTrait;
 
 /**
  * Application Controller

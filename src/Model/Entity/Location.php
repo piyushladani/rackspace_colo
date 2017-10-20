@@ -8,9 +8,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
+ * @property string $address
  *
  * @property \App\Model\Entity\Colocation[] $colocations
  * @property \App\Model\Entity\Rack[] $racks
+ * @property \App\Model\Entity\Shelf[] $shelfs
  */
 class Location extends Entity
 {
@@ -26,7 +28,9 @@ class Location extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'address' => true,
         'colocations' => true,
-        'racks' => true
+        'racks' => true,
+        'shelfs' => true
     ];
 }

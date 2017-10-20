@@ -15,6 +15,8 @@
         <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="locations view large-9 medium-8 columns content">
@@ -23,6 +25,10 @@
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($location->name) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Address') ?></th>
+            <td><?= h($location->address) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -40,7 +46,7 @@
                 <th scope="col"><?= __('Rack Id') ?></th>
                 <th scope="col"><?= __('Shelf Id') ?></th>
                 <th scope="col"><?= __('He') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('User') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($location->colocations as $colocations): ?>
@@ -51,7 +57,7 @@
                 <td><?= h($colocations->rack_id) ?></td>
                 <td><?= h($colocations->shelf_id) ?></td>
                 <td><?= h($colocations->he) ?></td>
-                <td><?= h($colocations->user_id) ?></td>
+                <td><?= h($colocations->user) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Colocations', 'action' => 'view', $colocations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Colocations', 'action' => 'edit', $colocations->id]) ?>
@@ -69,6 +75,7 @@
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Free') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -76,11 +83,43 @@
             <tr>
                 <td><?= h($racks->id) ?></td>
                 <td><?= h($racks->name) ?></td>
+                <td><?= h($racks->free) ?></td>
                 <td><?= h($racks->location_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Racks', 'action' => 'view', $racks->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Racks', 'action' => 'edit', $racks->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Racks', 'action' => 'delete', $racks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $racks->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Shelfs') ?></h4>
+        <?php if (!empty($location->shelfs)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Number') ?></th>
+                <th scope="col"><?= __('He') ?></th>
+                <th scope="col"><?= __('Free') ?></th>
+                <th scope="col"><?= __('Location Id') ?></th>
+                <th scope="col"><?= __('Rack Id') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($location->shelfs as $shelfs): ?>
+            <tr>
+                <td><?= h($shelfs->id) ?></td>
+                <td><?= h($shelfs->number) ?></td>
+                <td><?= h($shelfs->he) ?></td>
+                <td><?= h($shelfs->free) ?></td>
+                <td><?= h($shelfs->location_id) ?></td>
+                <td><?= h($shelfs->rack_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Shelfs', 'action' => 'view', $shelfs->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Shelfs', 'action' => 'edit', $shelfs->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Shelfs', 'action' => 'delete', $shelfs->id], ['confirm' => __('Are you sure you want to delete # {0}?', $shelfs->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

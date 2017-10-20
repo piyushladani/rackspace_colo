@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
-
 /**
  * Customers Controller
  *
@@ -12,7 +10,6 @@ use App\Controller\AppController;
  */
 class CustomersController extends AppController
 {
-
     /**
      * Index method
      *
@@ -21,11 +18,9 @@ class CustomersController extends AppController
     public function index()
     {
         $customers = $this->paginate($this->Customers);
-
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
-
     /**
      * View method
      *
@@ -38,11 +33,9 @@ class CustomersController extends AppController
         $customer = $this->Customers->get($id, [
             'contain' => ['Colocations']
         ]);
-
         $this->set('customer', $customer);
         $this->set('_serialize', ['customer']);
     }
-
     public function search()
  {
     if ($this->request->is('post'))
@@ -68,7 +61,6 @@ class CustomersController extends AppController
  
   $this->render('/Customers/index');
  }
-
     /**
      * Add method
      *
@@ -81,7 +73,6 @@ class CustomersController extends AppController
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());
             if ($this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
@@ -89,7 +80,6 @@ class CustomersController extends AppController
         $this->set(compact('customer'));
         $this->set('_serialize', ['customer']);
     }
-
     /**
      * Edit method
      *
@@ -106,7 +96,6 @@ class CustomersController extends AppController
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());
             if ($this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
@@ -114,7 +103,6 @@ class CustomersController extends AppController
         $this->set(compact('customer'));
         $this->set('_serialize', ['customer']);
     }
-
     /**
      * Delete method
      *
@@ -131,7 +119,6 @@ class CustomersController extends AppController
         } else {
             $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
-}
+      }

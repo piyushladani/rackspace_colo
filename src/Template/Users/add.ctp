@@ -7,8 +7,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="users form large-9 medium-8 columns content">
@@ -17,8 +15,10 @@
         <legend><?= __('Add User') ?></legend>
         <?php
             echo $this->Form->control('name');
+            echo $this->Form->control('email');
             echo $this->Form->control('username');
             echo $this->Form->control('password');
+            echo $this->Form->control('password_reset_token');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

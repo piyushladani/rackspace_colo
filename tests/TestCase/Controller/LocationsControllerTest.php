@@ -20,8 +20,7 @@ class LocationsControllerTest extends IntegrationTestCase
         'app.colocations',
         'app.customers',
         'app.racks',
-        'app.shelfs',
-        'app.users'
+        'app.shelfs'
     ];
 
     /**

@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Number') ?></th>
-            <td><?= $this->Number->format($customer->number) ?></td>
+            <td><?= h($customer->number) ?></td>
         </tr>
     </table>
     <div class="related">

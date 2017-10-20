@@ -14,8 +14,13 @@
         <?= $this->Form->create(); ?>
             <?= $this->Form->input('username');?>
             <?= $this->Form->input('password',array('type'=>'password'));?>
+            
             <?= $this->Form->submit('Login',array('class'=>'button'));?>
         <?= $this->Form->end(); ?>
+        <?=  $this->Html->link("Forgot Password",['controller'=>'Users','action'=>'forgotPassword'],array('style'=>'color:#2B4051;font-size:0.875em'));?>
+        
     </div>
+    
 </div>
+
 </html>

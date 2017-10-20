@@ -36,7 +36,7 @@
             <tr>
                 <td><?= $this->Number->format($customer->id) ?></td>
                 <td><?= h($customer->name) ?></td>
-                <td><?= $this->Number->format($customer->number) ?></td>
+                <td><?= h($customer->number) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $customer->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $customer->id]) ?>

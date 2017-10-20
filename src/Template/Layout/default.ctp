@@ -42,7 +42,7 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
     
  <div class="myview">   
     <?php if($loggedIn):?>
-    <?= $this->Html->image("logo".$this->request->session()->read('imgrandd').".png", array('width'=>'85px'),['fullBase' => true]);?>
+    <?= $this->Html->image("logo".$this->request->session()->read('imgrandd').".png", array('width'=>'85px','hspace'=>'27'),['fullBase' => true]);?>
     <?= "Welcome to ".$Houses[$this->request->session()->read('imgrandd')]. ", ".$this->request->session()->read('Auth.User.name'). " !" ?>
     <?php endif;?>
 </div>
