@@ -42,10 +42,7 @@
             <th scope="row"><?= __('Shelf') ?></th>
             <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= h($colocation->user) ?></td>
-        </tr>
+       
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($colocation->id) ?></td>

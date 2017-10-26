@@ -61,7 +61,7 @@ class ColocationsController extends AppController
             $this->loadModel('Shelfs');
             $this->Shelfs->updateAll(
                                 array('Shelfs.free' => 'no'), 
-                                array('Shelfs.id' => $colocation->shelf_id,
+                                array('Shelfs.id' => $colocation->shelf_id
         
     )
 );
@@ -100,11 +100,10 @@ class ColocationsController extends AppController
         $groups->matching('Shelfs', function ($q) use ($location) {
             return $q->where(['Shelfs.location_id' => $location, 'Shelfs.free' => 'yes' ]);
 });
-        $groups = $rackss->find('all',array(
-    'fields' => 'DISTINCT Racks.name'));
+        $groups ->select(['Racks.name','Racks.id'])
+    ->distinct(['Racks.name']);
         
         $groups=$groups->toArray();
-        debug($groups);
 
         
 
@@ -131,6 +130,7 @@ class ColocationsController extends AppController
         $this->set('_serialize', ['groups']);
         $this->render(false);
     }
+
 
     /**
      * Edit method
@@ -173,6 +173,13 @@ class ColocationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $colocation = $this->Colocations->get($id);
         if ($this->Colocations->delete($colocation)) {
+            $this->loadModel('Shelfs');
+            $this->Shelfs->updateAll(
+                                array('Shelfs.free' => 'yes'), 
+                                array('Shelfs.id' => $colocation->shelf_id
+        
+    )
+);
             $this->Flash->success(__('The colocation has been deleted.'));
         } else {
             $this->Flash->error(__('The colocation could not be deleted. Please, try again.'));

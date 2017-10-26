@@ -44,18 +44,25 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
     <?php if($loggedIn):?>
     <?= $this->Html->image("logo".$this->request->session()->read('imgrandd').".png", array('width'=>'85px','hspace'=>'27'),['fullBase' => true]);?>
     <?= "Welcome to ".$Houses[$this->request->session()->read('imgrandd')]. ", ".$this->request->session()->read('Auth.User.name'). " !" ?>
+    <pre align="right" ><?= $this->request->session()->read('Auth.User.name')." " ?></pre>
     <?php endif;?>
 </div>
 
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
+            <?php if($loggedIn):?>
             <li class="name">
+            <h1><a href="http://localhost:8888/colocation/colocation-app/colocations">Home</a></h1>
+            </li><li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
             </li>
+            <?php endif;?>
+
         </ul>
         <div class="top-bar-section">
             <ul class="right">
                 <?php if($loggedIn):?>
+
                 <li><?= $this->Html->link('Logout', ['controller'=>'users','action'=>'logout']);?></li>
                 <?php else: ?>
                 <li><?= $this->Html->link('Register', ['controller'=>'users','action'=>'register']);?></li>

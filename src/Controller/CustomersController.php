@@ -33,7 +33,10 @@ class CustomersController extends AppController
         $customer = $this->Customers->get($id, [
             'contain' => ['Colocations']
         ]);
-        $this->set('customer', $customer);
+        $loc=$this->loadModel('Locations');
+        $rack=$this->loadModel('Racks');
+        $shelf=$this->loadModel('Shelfs');
+        $this->set(compact('customer','loc','rack','shelf'));
         $this->set('_serialize', ['customer']);
     }
     public function search()
@@ -47,17 +50,13 @@ class CustomersController extends AppController
          #$connection = ConnectionManager::get('default');
          #$results = $connection->execute("SELECT * FROM customers WHERE name LIKE '$search_key' " )->fetchAll('assoc');
          $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
-         $conditions[] = array(
-         "OR" => array(
-           "Customers.name LIKE" => "%".$search_key."%",
-           "Customers.number LIKE" => "%".$search_key."%"  )
-          );
+         
       }
    }
  
  
    
-   $this->set('customers', $this->paginate($results));
+    $this->set('customers', $this->paginate($results));
  
   $this->render('/Customers/index');
  }
@@ -121,4 +120,9 @@ class CustomersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+  
+
+
+
       }

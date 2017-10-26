@@ -12,12 +12,13 @@ function selectRack(){
             if (request.readyState==4 && request.status==200)
             {
                 console.log(request.responseText);
+
                 var json = JSON.parse(request.responseText);
                 
                 
                 html = "<option disabled selected value> -Select Rack- </option>";
             for(var key in json['groups']) {
-            html += "<option value=" + key  + ">" +json['groups'][key] + "</option>"
+            html += "<option value=" + json['groups'][key]['id']  + ">" +json['groups'][key]['name']+ "</option>"
             
         }
 
