@@ -31,8 +31,8 @@
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('shelf_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('he') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('he','HU') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -45,7 +45,7 @@
                 <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
                 <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
                 <td><?= $this->Number->format($colocation->he) ?></td>
-                <td><?= h($colocation->user) ?></td>
+                <td><?= $colocation->has('user') ? $this->Html->link($colocation->user->name, ['controller' => 'Users', 'action' => 'view', $colocation->user->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>

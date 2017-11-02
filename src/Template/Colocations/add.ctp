@@ -31,7 +31,7 @@
             echo $this->Form->control('customer_id', ['options' => $customers]);
             echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc','empty' => '-Select Location-']);
             echo $this->Form->control('rack_id',['options' => $racks,'onchange'=>'selectShelf()','id'=>'rac','empty' => '-Select Rack-']);
-            echo $this->Form->control('shelf_id',['options' => $shelfs,'id'=>'shelf']);
+            echo $this->Form->control('shelf_id',['options' => $shelfs,'id'=>'shelf','empty' => '-Select Shelf-']);
             echo $this->Form->control('he');
             echo $this->Form->control('user', ['value' => $users,'readonly' => 'readonly']);
         ?>

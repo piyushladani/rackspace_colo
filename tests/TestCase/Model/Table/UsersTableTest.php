@@ -72,6 +72,16 @@ class UsersTableTest extends TestCase
     }
 
     /**
+     * Test validationPassword method
+     *
+     * @return void
+     */
+    public function testValidationPassword()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
      * Test buildRules method
      *
      * @return void

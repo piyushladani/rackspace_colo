@@ -39,7 +39,10 @@ class LocationsController extends AppController
             'contain' => ['Colocations', 'Racks', 'Shelfs']
         ]);
 
-        $this->set('location', $location);
+        $rack=$this->loadModel('Racks');
+        $loc=$this->loadModel('Locations');
+
+        $this->set(compact('location','rack','loc','colocations'));
         $this->set('_serialize', ['location']);
     }
 

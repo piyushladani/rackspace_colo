@@ -37,7 +37,7 @@ class Colocation extends Entity
         'rack_id' => true,
         'shelf_id' => true,
         'he' => true,
-        'user' => true,
+        'user_id' => true,
         'customer' => true,
         'location' => true,
         'rack' => true,

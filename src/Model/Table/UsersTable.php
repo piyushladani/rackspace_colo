@@ -71,8 +71,6 @@ class UsersTable extends Table
             ->scalar('confirm_password')
             ->requirePresence('confirm_password', 'create')
             ->notEmpty('confirm_password');
-
-
         $validator
             ->add('confirm_password',[
                 'compare' => [
@@ -81,6 +79,14 @@ class UsersTable extends Table
                 ]
                 ]);
 
+        $validator
+            ->scalar('role')
+            ->requirePresence('role', 'create')
+            ->notEmpty('role')
+            ->add('role', 'inList', [
+                'rule' => ['inList', ['admin', 'author']],
+                'message' => 'Please enter a valid role'
+            ]);
 
         $validator
             ->scalar('password_reset_token')
@@ -89,8 +95,7 @@ class UsersTable extends Table
 
         return $validator;
     }
-
-   public function validationPassword(Validator $validator)
+    public function validationPassword(Validator $validator)
     {
         $validator
                 ->add('old_password','custom',[
@@ -141,7 +146,6 @@ class UsersTable extends Table
         
         return $validator;
     }
-
 
     /**
      * Returns a rules checker object that will be used for validating

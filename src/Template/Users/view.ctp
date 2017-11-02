@@ -33,6 +33,10 @@
             <td><?= h($user->password) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Role') ?></th>
+            <td><?= h($user->role) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Password Reset Token') ?></th>
             <td><?= h($user->password_reset_token) ?></td>
         </tr>

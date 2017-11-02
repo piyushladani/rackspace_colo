@@ -41,8 +41,12 @@ class RacksController extends AppController
         $rack = $this->Racks->get($id, [
             'contain' => ['Locations', 'Colocations', 'Shelfs']
         ]);
+        $customer=$this->loadModel('Customers');
 
-        $this->set('rack', $rack);
+        $loc=$this->loadModel('Locations');
+        
+        $shelf=$this->loadModel('Shelfs');
+        $this->set(compact('rack','customer','loc','shelf'));
         $this->set('_serialize', ['rack']);
     }
 
@@ -113,4 +117,14 @@ class RacksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user)
+{
+    // All registered users can add articles
+    if (in_array($this->request->getParam('action'), ['index','view'])) {
+        return true;
+    }
+    
+    return parent::isAuthorized($user);
+}
 }

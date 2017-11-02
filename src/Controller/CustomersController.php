@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\Event\Event;
 /**
  * Customers Controller
  *
@@ -120,6 +121,17 @@ class CustomersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user)
+{
+    // All registered users can add articles
+    if (in_array($this->request->getParam('action'), ['add', 'index','view'])) {
+        return true;
+    }
+    
+
+    return parent::isAuthorized($user);
+}
 
   
 

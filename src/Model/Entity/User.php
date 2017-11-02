@@ -12,6 +12,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property string $email
  * @property string $username
  * @property string $password
+ * @property string $role
  * @property string $password_reset_token
  */
 class User extends Entity
@@ -31,6 +32,7 @@ class User extends Entity
         'email' => true,
         'username' => true,
         'password' => true,
+        'role' => true,
         'password_reset_token' => true
     ];
 

@@ -12,15 +12,17 @@
         <li><?= $this->Html->link(__('List Colocations'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Colocation'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?> </li>
+        
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?> </li>
+       <!--  
+        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li> -->
     </ul>
 </nav>
 <div class="colocations view large-9 medium-8 columns content">
@@ -48,7 +50,7 @@
             <td><?= $this->Number->format($colocation->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('He') ?></th>
+            <th scope="row"><?= __('HU') ?></th>
             <td><?= $this->Number->format($colocation->he) ?></td>
         </tr>
     </table>

@@ -23,7 +23,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('number') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('he') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('he','HU') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('free') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>

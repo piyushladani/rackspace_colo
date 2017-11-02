@@ -51,6 +51,10 @@ class ColocationsTable extends Table
             'foreignKey' => 'rack_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Shelfs', [
             'foreignKey' => 'shelf_id',
             'joinType' => 'INNER'
@@ -95,7 +99,15 @@ class ColocationsTable extends Table
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
         $rules->add($rules->existsIn(['rack_id'], 'Racks'));
         $rules->add($rules->existsIn(['shelf_id'], 'Shelfs'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
     }
+
+    public function isOwnedBy($articleId, $userId)
+{
+    return $this->exists(['id' => $articleId, 'user_id' => $userId]);
+}
+
+
 }

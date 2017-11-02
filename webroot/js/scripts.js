@@ -17,13 +17,14 @@ function selectRack(){
                 
                 
                 html = "<option disabled selected value> -Select Rack- </option>";
+                html1 = "<option disabled selected value> -Select Shelf- </option>";
             for(var key in json['groups']) {
             html += "<option value=" + json['groups'][key]['id']  + ">" +json['groups'][key]['name']+ "</option>"
             
         }
 
         document.getElementById("rac").innerHTML = html;
-        document.getElementById("shelf").innerHTML = null;
+        document.getElementById("shelf").innerHTML = html1;
 
             }
             
@@ -47,7 +48,7 @@ function selectRack(){
                 
                 var json = JSON.parse(request.responseText);
                 
-                html = "";
+                html = "<option disabled selected value> -Select Shelf- </option>";
 
             for(var key in json['groups']) {
             html += "<option value=" + key  + ">" +json['groups'][key] + "</option>"

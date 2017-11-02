@@ -8,11 +8,14 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Customer'), ['action' => 'edit', $customer->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Customer'), ['action' => 'delete', $customer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customer->id)]) ?> </li>
+        
         <li><?= $this->Html->link(__('List Customers'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Customer'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?> </li>
+        <!-- 
+        <li><?= $this->Form->postLink(__('Delete Customer'), ['action' => 'delete', $customer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customer->id)]) ?> </li>
+    -->
     </ul>
 </nav>
 <div class="customers view large-9 medium-8 columns content">
@@ -37,7 +40,7 @@
                 <th scope="col"><?= __('Location') ?></th>
                 <th scope="col"><?= __('Rack') ?></th>
                 <th scope="col"><?= __('Shelf Id') ?></th>
-                <th scope="col"><?= __('He') ?></th>
+                <th scope="col"><?= __('HU') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
       

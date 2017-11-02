@@ -9,8 +9,6 @@ use Cake\Routing\Router;
 use Cake\Mailer\MailerAwareTrait;
 use Cake\Mailer\Email;
 
-
-
 /**
  * Users Controller
  *
@@ -20,7 +18,8 @@ use Cake\Mailer\Email;
  */
 class UsersController extends AppController
 {
-  use MailerAwareTrait;
+
+    use MailerAwareTrait;
  //login
     public function login(){
         if($this->request->is('post')){
@@ -28,7 +27,6 @@ class UsersController extends AppController
             if($user){
                 $this->Auth->setUser($user);
                 $session = $this->request->session();
-
                 $session->write('imgrandd', rand(1,13));
                 return $this->redirect(['controller'=>'colocations']);
             }
@@ -41,7 +39,6 @@ class UsersController extends AppController
         $this->Flash->success('You are logged out');
         return $this->redirect($this->Auth->logout());
     }
-
  
 public function forgotPassword() 
 {
@@ -55,22 +52,17 @@ public function forgotPassword()
          if (!empty($user))
          {
         $password = sha1(Text::uuid());
-
         $password_token = Security::hash($password, 'sha256', true);
-
         $hashval = sha1($user->username . rand(0, 100));
             
         $user->password_reset_token = $password_token;
         $user->hashval = $hashval;
-
         $reset_token_link = Router::url(['controller' => 'Users', 'action' => 'resetPassword'], TRUE) . '/' . $password_token . '#' . $hashval;
             
         $emaildata = [$user->email, $reset_token_link, $user->name];
         $this->getMailer('SendEmail')->send('sendEmail', [$emaildata]);
-
         $this->Users->save($user);
         $this->Flash->success('Please click on password reset link, sent in your email address to reset password.');
-
          }
     else
     {
@@ -79,12 +71,9 @@ public function forgotPassword()
      }
  }
 }
-
 public function resetPassword($token = null) {
         if (!empty($token)) {
-
             $user = $this->Users->findByPasswordResetToken($token)->first();
-
             if ($user) {
                 
                 if (!empty($this->request->data)) {
@@ -94,14 +83,11 @@ public function resetPassword($token = null) {
                         'confirm_password' => $this->request->data['confirm_password']
                             ], ['validate' => 'password']
                     );
-
                     $hashval_new = sha1($user->username . rand(0, 100));
                     $user->password_reset_token = $hashval_new;
-
                     if ($this->Users->save($user)) {
                         $this->Flash->success('Your password has been changed successfully');
                         
-
                         $this->redirect(['action' => 'login']);
                     } else {
                         $this->Flash->error('Error changing password. Please try again!');
@@ -116,8 +102,6 @@ public function resetPassword($token = null) {
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
-
-
     public function register(){
         $user=$this->Users->newEntity();
         
@@ -137,10 +121,9 @@ public function resetPassword($token = null) {
         $this->set(compact('user'));
         $this->set('_serialize',['user']);
     }
-    public function beforeFilter(Event $event){
-        $this->Auth->allow(['forgotPassword', 'register','resetPassword']);
-    }
     
+    
+
     /**
      * Index method
      *
@@ -164,7 +147,7 @@ public function resetPassword($token = null) {
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Colocations']
+            'contain' => []
         ]);
 
         $this->set('user', $user);
@@ -236,5 +219,20 @@ public function resetPassword($token = null) {
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function beforeFilter(Event $event){
+        $this->Auth->allow(['forgotPassword', 'register','resetPassword','logout']);
+    }
+
+    public function isAuthorized($user)
+{
+    // All registered users can add articles
+    if (in_array($this->request->getParam('action'), ['index','view'])) {
+        return true;
+    }
+    
+    return parent::isAuthorized($user);
+}
+
     
 }

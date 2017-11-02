@@ -55,6 +55,9 @@ class AppController extends Controller
                         ]
                     ]
             ],
+            
+            'authorize' => 'Controller',
+        
             'loginAction'=>[
                 'controller'=>'Users',
                 'action'=>'login'
@@ -70,12 +73,28 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
     }
 
+    public function isAuthorized($user)
+{
+    // Admin can access every action
+    if (isset($user['role']) && $user['role'] === 'admin') {
+        return true;
+    }
+
+    // Default deny
+    return false;
+}
+
     /**
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Http\Response|null|void
      */
+
+    public function beforeFilter(Event $event){
+        $this->Auth->allow('logout');
+}
+
     public function beforeRender(Event $event)
     {
         // Note: These defaults are just to get started quickly with development
