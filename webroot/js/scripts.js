@@ -45,6 +45,7 @@ function selectRack(){
         {
             if (request.readyState==4 && request.status==200)
             {
+              console.log(request.responseText);
                 
                 var json = JSON.parse(request.responseText);
                 
@@ -65,3 +66,5 @@ function selectRack(){
         }
 
   }
+
+  

@@ -79,6 +79,22 @@ class ColocationsTable extends Table
             ->notEmpty('he');
 
         $validator
+            ->requirePresence('customer_id', 'create')
+            ->notEmpty('customer_id');
+
+        $validator
+            ->requirePresence('location_id', 'create')
+            ->notEmpty('location_id');
+
+        $validator
+            ->requirePresence('rack_id', 'create')
+            ->notEmpty('rack_id');
+
+        $validator
+            ->requirePresence('shelf_id', 'create')
+            ->notEmpty('shelf_id');
+
+        $validator
             ->scalar('user')
             ->requirePresence('user', 'create')
             ->notEmpty('user');

@@ -22,7 +22,7 @@
         <?php
             echo $this->Form->control('number');
             echo $this->Form->control('he');
-            echo $this->Form->control('free');
+            echo $this->Form->control('free',['options' =>[ 'yes','no']]);
             echo $this->Form->control('location_id', ['options' => $locations]);
             echo $this->Form->control('rack_id', ['options' => $racks]);
         ?>

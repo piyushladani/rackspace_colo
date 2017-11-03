@@ -39,18 +39,13 @@
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Location') ?></th>
                 <th scope="col"><?= __('Rack') ?></th>
-                <th scope="col"><?= __('Shelf Id') ?></th>
+                <th scope="col"><?= __('Shelf Number') ?></th>
                 <th scope="col"><?= __('HU') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
       
             <?php foreach ($customer->colocations as $colocations): ?>
-            <tr>
 
-                <td><?= h($colocations->id) ?></td>
-                
-
-                
                 <?php 
                 //Location,Rack and Shelf ids are replaced with their respective names
                 $locid=$colocations->location_id;
@@ -77,7 +72,10 @@
     #var_dump($group);die();
 
                 ?>
-                <td><?= h($locations[0]["name"]) ?></td>
+            <tr>
+
+                <td><?= h($colocations->id) ?></td>
+                <td><?= $this->Html->link($locations[0]["name"], ['controller' => 'Locations', 'action' => 'view', $locid]) ;?></td>
                 <td><?= h($racks[0]["name"]) ?></td>
                 <td><?= h($shelfs[0]["number"]) ?></td>
                 <td><?= h($colocations->he) ?></td>

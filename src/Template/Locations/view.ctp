@@ -42,25 +42,58 @@
             
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Customer Id') ?></th>
-                <th scope="col"><?= __('Location Id') ?></th>
-                <th scope="col"><?= __('Rack Id') ?></th>
-                <th scope="col"><?= __('Shelf Id') ?></th>
-                <th scope="col"><?= __('He') ?></th>
+                <th scope="col"><?= __('Customer Name') ?></th>
+                <th scope="col"><?= __('Rack') ?></th>
+                <th scope="col"><?= __('Shelf Number') ?></th>
+                <th scope="col"><?= __('HU') ?></th>
                 <th scope="col"><?= __('User') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         
   
             <?php foreach ($location->colocations as $colocations): ?>
+                <?php 
+                //Location,Rack and Shelf ids are replaced with their respective names
+                
+                $rackid=$colocations->rack_id;
+                $shelfid=$colocations->shelf_id;
+                $customerid=$colocations->customer_id;
+                $userid=$colocations->user_id;
+
+            
+    $customers=$customer->find();
+
+        $customers->select(['Customers.name'])
+    ->distinct(['Customers.name'])->where(['Customers.id'=>$customerid]);
+    $customers=$customers->toArray();
+
+    $racks=$rack->find();
+
+        $racks->select(['Racks.name'])
+    ->distinct(['Racks.name'])->where(['Racks.id'=>$rackid]);
+    $racks=$racks->toArray();
+
+    $shelfs=$shelf->find();
+
+    $shelfs->select(['Shelfs.number'])
+    ->distinct(['Shelfs.number'])->where(['Shelfs.id'=>$shelfid]);
+    $shelfs=$shelfs->toArray();
+
+    $users=$user->find();
+
+    $users->select(['Users.name'])
+    ->distinct(['Users.name'])->where(['Users.id'=>$userid]);
+    $users=$users->toArray();
+    #var_dump($group);die();
+
+                ?>
             <tr>
                 <td><?= h($colocations->id) ?></td>
-                <td><?= h($colocations->customer_id) ?></td>
-                <td><?= h($colocations->location_id) ?></td>
-                <td><?= h($colocations->rack_id) ?></td>
-                <td><?= h($colocations->shelf_id) ?></td>
+                <td><?= h($customers[0]["name"]) ?></td>
+                <td><?= h($racks[0]["name"]) ?></td>
+                <td><?= h($shelfs[0]["number"]) ?></td>
                 <td><?= h($colocations->he) ?></td>
-                <td><?= h($colocations->user) ?></td>
+                <td><?= h($users[0]["name"]) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Colocations', 'action' => 'view', $colocations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Colocations', 'action' => 'edit', $colocations->id]) ?>
@@ -95,7 +128,7 @@
     ?>
             <tr>
                 <td><?= h($racks->id) ?></td>
-                <td><?= h($racks->name) ?></td>
+                <td><?= $this->Html->link($racks->name, ['controller' => 'Racks', 'action' => 'view', $racks->id]) ; ?></td>
                 <td><?= h($racks->free) ?></td>
                 <td><?= h($locations[0]["name"]) ?></td>
                 <td class="actions">
@@ -115,7 +148,7 @@
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Number') ?></th>
-                <th scope="col"><?= __('HE') ?></th>
+                <th scope="col"><?= __('HU') ?></th>
                 <th scope="col"><?= __('Free') ?></th>
                 <th scope="col"><?= __('Location Name') ?></th>
                 <th scope="col"><?= __('Rack Name') ?></th>

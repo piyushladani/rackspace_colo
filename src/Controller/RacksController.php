@@ -42,11 +42,12 @@ class RacksController extends AppController
             'contain' => ['Locations', 'Colocations', 'Shelfs']
         ]);
         $customer=$this->loadModel('Customers');
+        $user=$this->loadModel('Users');
 
         $loc=$this->loadModel('Locations');
         
         $shelf=$this->loadModel('Shelfs');
-        $this->set(compact('rack','customer','loc','shelf'));
+        $this->set(compact('rack','customer','loc','shelf','user'));
         $this->set('_serialize', ['rack']);
     }
 

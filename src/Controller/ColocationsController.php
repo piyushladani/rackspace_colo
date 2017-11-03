@@ -124,6 +124,7 @@ class ColocationsController extends AppController
     {
         $rack_id = (int)$this->request->getQuery('location');
         
+        
         $this->viewBuilder()->className('Json');
         $this->set('_jsonOptions', JSON_FORCE_OBJECT);
         $this->loadModel('Shelfs');
@@ -201,12 +202,12 @@ class ColocationsController extends AppController
     public function isAuthorized($user)
 {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['add', 'index','view','logout','getrack','shelf'])) {
+    if (in_array($this->request->getParam('action'), ['add','edit', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
         return true;
     }
 
     // The owner of an article can edit and delete it
-    if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+    if (in_array($this->request->getParam('action'), ['delete'])) {
         $articleId = (int)$this->request->getParam('pass.0');
         
         if ($this->Colocations->isOwnedBy($articleId, $user['id'])) {

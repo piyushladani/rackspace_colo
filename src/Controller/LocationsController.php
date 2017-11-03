@@ -39,10 +39,15 @@ class LocationsController extends AppController
             'contain' => ['Colocations', 'Racks', 'Shelfs']
         ]);
 
-        $rack=$this->loadModel('Racks');
-        $loc=$this->loadModel('Locations');
 
-        $this->set(compact('location','rack','loc','colocations'));
+        $rack=$this->loadModel('Racks');
+        $shelf=$this->loadModel('Shelfs');
+        $colo=$this->loadModel('Colocations');
+        $customer=$this->loadModel('Customers');
+        $loc=$this->loadModel('Locations');
+        $user=$this->loadModel('Users');
+
+        $this->set(compact('location','loc','rack','shelf','colo','customer','user'));
         $this->set('_serialize', ['location']);
     }
 
@@ -111,4 +116,15 @@ class LocationsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+     public function isAuthorized($user)
+{
+    // All registered users can add articles
+    if (in_array($this->request->getParam('action'), ['index','view'])) {
+        return true;
+    }
+    
+
+    return parent::isAuthorized($user);
+}
 }
