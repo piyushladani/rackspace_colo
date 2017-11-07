@@ -79,6 +79,10 @@ class ColocationsTable extends Table
             ->notEmpty('he');
 
         $validator
+            ->requirePresence('customer', 'create')
+            ->notEmpty('customer');
+
+        $validator
             ->requirePresence('customer_id', 'create')
             ->notEmpty('customer_id');
 

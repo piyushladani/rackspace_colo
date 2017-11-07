@@ -35,6 +35,9 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <?=$this->Html->script('//code.jquery.com/jquery-1.10.2.js')?>
+   <?= $this->Html->script('//code.jquery.com/ui/1.11.4/jquery-ui.js')?>
+   <?= $this->Html->css('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')?>
 </head>
 <body>
 

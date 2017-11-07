@@ -122,10 +122,32 @@ class CustomersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function getall()
+{
+    if ($this->request->is('get')) {
+        
+        $name = $this->request->query['term'];
+        $results = $this->Customers->find('all', [
+            'conditions' => [ 'OR' => [
+                'name LIKE' => $name . '%',
+                'number LIKE' => $name . '%',
+                
+            ]]
+        ]);
+        $resultsArr = [];
+        foreach ($results as $result) {
+             $resultsArr[] =['label' => $result['name'], 'value' => $result['id']];
+        }
+        #echo json_encode($resultsArr);
+        $this->response->body(json_encode($resultsArr));
+    }
+    $this->autoRender = false;
+}
+
     public function isAuthorized($user)
 {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['add', 'index','view'])) {
+    if (in_array($this->request->getParam('action'), ['add', 'index','view','getall'])) {
         return true;
     }
     

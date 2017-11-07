@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
+
 /**
  * Colocations Controller
  *
@@ -56,6 +57,7 @@ class ColocationsController extends AppController
 
     public function add()
     {
+        $cust=null;
         $colocation = $this->Colocations->newEntity();
         if ($this->request->is('post')) {
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
@@ -67,6 +69,8 @@ class ColocationsController extends AppController
     )
 );
             $colocation->user_id = $this->Auth->user('id');
+        
+
            
             if ($this->Colocations->save($colocation)) {
                 $this->Flash->success(__('The colocation has been saved.'));
@@ -80,12 +84,9 @@ class ColocationsController extends AppController
     
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
-        #$racks = $this->Colocations->Racks->find('list', ['limit' => 200]);
-        #$shelfs = $this->Colocations->Shelfs->find('list', ['limit' => 200]);
         $racks=null;
         $shelfs=null;
         $users = $this->request->session()->read('Auth.User.name');
-        #$users = $this->request->session()->read('Users.name');
         $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs','users'));
         $this->set('_serialize', ['colocation']);
     }
@@ -107,14 +108,7 @@ class ColocationsController extends AppController
         
         $groups=$groups->toArray();
 
-        
-
-
-        #$groups = $this->Racks->Shelfs->findAllByFree('yes');
-    
        
-
-        #$groups=$this->Racks->find('list',['conditions'=>['Racks.location_id'=> $location]]);
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
         $this->render(false);
@@ -217,8 +211,6 @@ class ColocationsController extends AppController
 
     return parent::isAuthorized($user);
 }
-
- 
 
 
 
