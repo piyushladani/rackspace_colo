@@ -41,7 +41,7 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
 </head>
 <body>
 
-<h2 align="center" ><a href="http://localhost:8888/colocation/colocation-app/colocations">DE-CIX Colocation</a></h2>
+<h2 align="center" ><a href="http://localhost:8888/colocation/colocation-app/locations">DE-CIX Colocation</a></h2>
     
  <div class="myview">   
     <?php if($loggedIn):?>
@@ -55,7 +55,7 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
         <ul class="title-area large-3 medium-4 columns">
             <?php if($loggedIn):?>
             <li class="name">
-            <h1><a href="http://localhost:8888/colocation/colocation-app/colocations">Home</a></h1>
+            <h1><a href="http://localhost:8888/colocation/colocation-app/locations">Home</a></h1>
             </li><li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
             </li>

@@ -49,7 +49,7 @@ $(document).ready(function($){
     $('#customer').autocomplete({
 
         source:'<?php echo Router::url(array('controller' => 'Customers', 'action' => 'getall')); ?>',
-        minLength: 2,
+        minLength: 1,
         select: function(event, ui) {
         event.preventDefault();
         $("#customer").val(ui.item.label);

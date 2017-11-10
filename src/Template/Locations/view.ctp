@@ -35,7 +35,7 @@
             <td><?= $this->Number->format($location->id) ?></td>
         </tr>
     </table>
-    <div class="related">
+   <!-- <div class="related">
         <h4><?= __('Related Colocations') ?></h4>
         <?php if (!empty($location->colocations)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -97,14 +97,14 @@
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Colocations', 'action' => 'view', $colocations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Colocations', 'action' => 'edit', $colocations->id]) ?>
-                    <!--<?= $this->Form->postLink(__('Delete'), ['controller' => 'Colocations', 'action' => 'delete', $colocations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $colocations->id)]) ?>-->
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Colocations', 'action' => 'delete', $colocations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $colocations->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
             
         </table>
         <?php endif; ?>
-    </div>
+    </div> -->
     <div class="related">
         <h4><?= __('Related Racks') ?></h4>
         <?php if (!empty($location->racks)): ?>
@@ -113,23 +113,32 @@
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Free') ?></th>
+                <th scope="col"><?= __('Number of Free HU') ?></th>
                 <th scope="col"><?= __('Location Name') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($location->racks as $racks): ?>
 <?php 
                 $locid=$racks->location_id;
+                $rackid=$racks->id;
 
                 $locations=$loc->find();
 
         $locations->select(['Locations.name'])
     ->distinct(['Locations.name'])->where(['Locations.id'=>$locid]);
     $locations=$locations->toArray();
-    ?>
+
+//counting number of free HU in particular rack
+$shelfs=$shelf->find();
+     $shelfs->select(['Shelfs.free'])->where(['Shelfs.free'=>'yes','Shelfs.rack_id'=>$rackid]);
+    $freehu=$shelfs->toArray();
+    $count=count($freehu);
+        ?>
             <tr>
                 <td><?= h($racks->id) ?></td>
                 <td><?= $this->Html->link($racks->name, ['controller' => 'Racks', 'action' => 'view', $racks->id]) ; ?></td>
                 <td><?= h($racks->free) ?></td>
+                <td><?= h($count) ?></td>
                 <td><?= h($locations[0]["name"]) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Racks', 'action' => 'view', $racks->id]) ?>
@@ -141,15 +150,17 @@
         </table>
         <?php endif; ?>
     </div>
+     
     <div class="related">
-        <h4><?= __('Related Shelfs') ?></h4>
+      <h4><?= __('Related Shelves') ?></h4>
         <?php if (!empty($location->shelfs)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Number') ?></th>
-                <th scope="col"><?= __('HU') ?></th>
                 <th scope="col"><?= __('Free') ?></th>
+                <th scope="col"><?= __('HU') ?></th>
+                
                 <th scope="col"><?= __('Location Name') ?></th>
                 <th scope="col"><?= __('Rack Name') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -179,8 +190,9 @@
             <tr>
                 <td><?= h($shelfs->id) ?></td>
                 <td><?= h($shelfs->number) ?></td>
-                <td><?= h($shelfs->he) ?></td>
                 <td><?= h($shelfs->free) ?></td>
+                <td><?= h($shelfs->he) ?></td>
+                
                 <td><?= h($locations[0]["name"]) ?></td>
                 <td><?= h($racks[0]["name"]) ?></td>
                 <td class="actions">

@@ -52,7 +52,7 @@
                 <th scope="col"><?= __('Customer Name') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
                 
-                <th scope="col"><?= __('Shelf Id') ?></th>
+                <th scope="col"><?= __('Shelf') ?></th>
                 <th scope="col"><?= __('HU') ?></th>
                 <th scope="col"><?= __('User') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -120,18 +120,20 @@
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Number') ?></th>
+                <th scope="col"><?= __('Free') ?></th>
                 <th scope="col"><?= __('HU') ?></th>
-                <th scope="col"><?= __('Location Id') ?></th>
-                <th scope="col"><?= __('Rack Id') ?></th>
+                <th scope="col"><?= __('Location') ?></th>
+                
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($rack->shelfs as $shelfs): ?>
             <tr>
                 <td><?= h($shelfs->id) ?></td>
                 <td><?= h($shelfs->number) ?></td>
+                <td><?= h($shelfs->free) ?></td>
                 <td><?= h($shelfs->he) ?></td>
-                <td><?= h($shelfs->location_id) ?></td>
-                <td><?= h($shelfs->rack_id) ?></td>
+                <td><?= h($locations[0]["name"]) ?></td>
+                
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Shelfs', 'action' => 'view', $shelfs->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Shelfs', 'action' => 'edit', $shelfs->id]) ?>

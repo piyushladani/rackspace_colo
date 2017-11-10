@@ -28,7 +28,7 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 $session = $this->request->session();
                 $session->write('imgrandd', rand(1,13));
-                return $this->redirect(['controller'=>'colocations']);
+                return $this->redirect(['controller'=>'locations']);
             }
             //Bad login
             $this->Flash->error('Incorrect Login');

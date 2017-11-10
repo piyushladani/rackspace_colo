@@ -19,6 +19,10 @@ class CustomersController extends AppController
     public function index()
     {
         $customers = $this->paginate($this->Customers);
+
+        $colo=$this->loadModel('Colocations');
+        $this->set(compact('customer','colo'));
+
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }

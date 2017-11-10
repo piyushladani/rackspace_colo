@@ -27,16 +27,46 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('number') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('number','Customer Number') ?></th>
+                <th scope="col"><?= __('Total HU') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($customers as $customer): ?>
+  
+          <?php foreach ($customers as $customer): ?>
+
+
+<?php
+
+//counting total HU for each customer from colo
+             $custid=$customer->id;
+
+                $colocations=$colo->find();
+
+    $colocations->select(['Colocations.he'])->where(['Colocations.customer_id'=>$custid]);
+    $hu=$colocations->toArray();  
+    $count=0;
+if (!empty($hu)) {
+
+    
+    foreach ($hu as $v1) {
+    
+    $count=$v1['he']+ $count;
+       
+}
+
+    
+}
+
+
+    ?> 
             <tr>
                 <td><?= $this->Number->format($customer->id) ?></td>
                 <td><?= h($customer->name) ?></td>
                 <td><?= h($customer->number) ?></td>
+                <td><?= h($count) ?></td>
+
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $customer->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $customer->id]) ?>
