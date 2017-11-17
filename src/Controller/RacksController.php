@@ -1,17 +1,17 @@
 <?php
-namespace App\Controller;
+    namespace App\Controller;
 
-use App\Controller\AppController;
+    use App\Controller\AppController;
 
-/**
- * Racks Controller
- *
- * @property \App\Model\Table\RacksTable $Racks
- *
- * @method \App\Model\Entity\Rack[] paginate($object = null, array $settings = [])
- */
-class RacksController extends AppController
-{
+    /**
+    * Racks Controller
+    *
+    * @property \App\Model\Table\RacksTable $Racks
+    *
+    * @method \App\Model\Entity\Rack[] paginate($object = null, array $settings = [])
+    */
+    class RacksController extends AppController
+    {
 
     /**
      * Index method
@@ -120,12 +120,12 @@ class RacksController extends AppController
     }
 
     public function isAuthorized($user)
-{
+    {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['index','view'])) {
-        return true;
+        if (in_array($this->request->getParam('action'), ['index','view'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
     }
-    
-    return parent::isAuthorized($user);
-}
-}
+    }

@@ -1,16 +1,16 @@
 <?php
-namespace App\Controller;
-use App\Controller\AppController;
-use Cake\Event\Event;
-/**
- * Customers Controller
- *
- * @property \App\Model\Table\CustomersTable $Customers
- *
- * @method \App\Model\Entity\Customer[] paginate($object = null, array $settings = [])
- */
-class CustomersController extends AppController
-{
+    namespace App\Controller;
+    use App\Controller\AppController;
+    use Cake\Event\Event;
+    /**
+    * Customers Controller
+    *
+    * @property \App\Model\Table\CustomersTable $Customers
+    *
+    * @method \App\Model\Entity\Customer[] paginate($object = null, array $settings = [])
+    */
+    class CustomersController extends AppController
+    {
     /**
      * Index method
      *
@@ -29,7 +29,7 @@ class CustomersController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Customer id.
+    * @param string|null $id Customer id.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -45,26 +45,24 @@ class CustomersController extends AppController
         $this->set('_serialize', ['customer']);
     }
     public function search()
- {
-    if ($this->request->is('post'))
-   {
-    
-      if(!empty($this->request->data) && isset($this->request->data) )
-      {
-         $search_key=$this->request->data["search_customer"];
-         #$connection = ConnectionManager::get('default');
-         #$results = $connection->execute("SELECT * FROM customers WHERE name LIKE '$search_key' " )->fetchAll('assoc');
-         $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
-         
-      }
-   }
- 
- 
-   
+    {
+        if ($this->request->is('post'))
+        {
+
+          if(!empty($this->request->data) && isset($this->request->data) )
+          {
+           $search_key=$this->request->data["search_customer"];
+           $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
+
+       }
+    }
+
+
+
     $this->set('customers', $this->paginate($results));
- 
-  $this->render('/Customers/index');
- }
+
+    $this->render('/Customers/index');
+    }
     /**
      * Add method
      *
@@ -127,40 +125,40 @@ class CustomersController extends AppController
     }
 
     public function getall()
-{
-    if ($this->request->is('get')) {
-        
-        $name = $this->request->query['term'];
-        $results = $this->Customers->find('all', [
-            'conditions' => [ 'OR' => [
-                'name LIKE' => $name . '%',
-                'number LIKE' => $name . '%',
-                
-            ]]
-        ]);
-        $resultsArr = [];
-        foreach ($results as $result) {
-             $resultsArr[] =['label' => $result['name'], 'value' => $result['id']];
-        }
+    {
+        if ($this->request->is('get')) {
+
+            $name = $this->request->query['term'];
+            $results = $this->Customers->find('all', [
+                'conditions' => [ 'OR' => [
+                    'name LIKE' => $name . '%',
+                    'number LIKE' => $name . '%',
+
+                ]]
+            ]);
+            $resultsArr = [];
+            foreach ($results as $result) {
+               $resultsArr[] =['label' => $result['name'], 'value' => $result['id']];
+           }
         #echo json_encode($resultsArr);
-        $this->response->body(json_encode($resultsArr));
+           $this->response->body(json_encode($resultsArr));
+       }
+       $this->autoRender = false;
     }
-    $this->autoRender = false;
-}
 
     public function isAuthorized($user)
-{
+    {
     // All registered users can add articles
     if (in_array($this->request->getParam('action'), ['add', 'index','view','getall'])) {
         return true;
     }
-    
+
 
     return parent::isAuthorized($user);
-}
-
-  
+    }
 
 
 
-      }
+
+
+    }

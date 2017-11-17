@@ -1,34 +1,34 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   https://opensource.org/licenses/mit-license.php MIT License
- */
-namespace App\Controller;
+    /**
+    * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+    * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+    *
+    * Licensed under The MIT License
+    * For full copyright and license information, please see the LICENSE.txt
+    * Redistributions of files must retain the above copyright notice.
+    *
+    * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+    * @link      https://cakephp.org CakePHP(tm) Project
+    * @since     0.2.9
+    * @license   https://opensource.org/licenses/mit-license.php MIT License
+    */
+    namespace App\Controller;
 
-use Cake\Controller\Controller;
-use Cake\Event\Event;
-use Cake\Core\Configure;
-use Cake\Mailer\MailerAwareTrait;
+    use Cake\Controller\Controller;
+    use Cake\Event\Event;
+    use Cake\Core\Configure;
+    use Cake\Mailer\MailerAwareTrait;
 
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
- */
-class AppController extends Controller
-{
+    /**
+    * Application Controller
+    *
+    * Add your application-wide methods in the class below, your controllers
+    * will inherit them.
+    *
+    * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+    */
+    class AppController extends Controller
+    {
 
     /**
      * Initialization hook method.
@@ -52,17 +52,17 @@ class AppController extends Controller
                     'fields'=>[
                         'username'=>'username',
                         'password'=>'password'
-                        ]
                     ]
+                ]
             ],
             
             'authorize' => 'Controller',
-        
+
             'loginAction'=>[
                 'controller'=>'Users',
                 'action'=>'login'
             ]
-            ]);
+        ]);
         
 
         /*
@@ -74,15 +74,15 @@ class AppController extends Controller
     }
 
     public function isAuthorized($user)
-{
+    {
     // Admin can access every action
-    if (isset($user['role']) && $user['role'] === 'admin') {
-        return true;
-    }
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
 
     // Default deny
-    return false;
-}
+        return false;
+    }
 
     /**
      * Before render callback.
@@ -93,7 +93,7 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event){
         $this->Auth->allow('logout');
-}
+    }
 
     public function beforeRender(Event $event)
     {
@@ -104,32 +104,32 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
-        }
-         //Login Check
-        if($this->request->session()->read('Auth.User')){
-            $this->set('Houses', [
-    '1' => 'House Targaryen',
-    '2' => 'House Tully',
-    '3' => 'House Lannister',
-    '4' => 'House Stark',
-    '5' => 'Brotherhood Without Banners',
-    '6' => 'House Tyrell',
-    '7' => 'House Greyjoy',
-    '8' => 'House Bolton',
-    '9' => 'House Arryn',
-    '10' => 'House Baratheon',
-    '11' => 'House Martell',
-    '12' => 'House Frey',
-    '13' => 'House Mormont'
-]);
-            $this->set('loggedIn',true);
+    }
+    //Login Check
+    if($this->request->session()->read('Auth.User')){
+        $this->set('Houses', [
+            '1' => 'House Targaryen',
+            '2' => 'House Tully',
+            '3' => 'House Lannister',
+            '4' => 'House Stark',
+            '5' => 'Brotherhood Without Banners',
+            '6' => 'House Tyrell',
+            '7' => 'House Greyjoy',
+            '8' => 'House Bolton',
+            '9' => 'House Arryn',
+            '10' => 'House Baratheon',
+            '11' => 'House Martell',
+            '12' => 'House Frey',
+            '13' => 'House Mormont'
+        ]);
+        $this->set('loggedIn',true);
 
-        }else{
-            $this->set('loggedIn',false);
-        }
+    }else{
+        $this->set('loggedIn',false);
+    }
 
 
     }
-    
-    
-}
+
+
+    }

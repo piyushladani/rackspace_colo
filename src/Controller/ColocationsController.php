@@ -1,20 +1,20 @@
 <?php
-namespace App\Controller;
+    namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
-use Cake\Event\Event;
+    use App\Controller\AppController;
+    use Cake\ORM\TableRegistry;
+    use Cake\Event\Event;
 
 
-/**
- * Colocations Controller
- *
- * @property \App\Model\Table\ColocationsTable $Colocations
- *
- * @method \App\Model\Entity\Colocation[] paginate($object = null, array $settings = [])
- */
-class ColocationsController extends AppController
-{
+    /**
+    * Colocations Controller
+    *
+    * @property \App\Model\Table\ColocationsTable $Colocations
+    *
+    * @method \App\Model\Entity\Colocation[] paginate($object = null, array $settings = [])
+    */
+    class ColocationsController extends AppController
+    {
 
     /**
      * Index method
@@ -63,15 +63,15 @@ class ColocationsController extends AppController
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
             $this->loadModel('Shelfs');
             $this->Shelfs->updateAll(
-                                array('Shelfs.free' => 'no'), 
-                                array('Shelfs.id' => $colocation->shelf_id
-        
-    )
-);
-            $colocation->user_id = $this->Auth->user('id');
-        
+                array('Shelfs.free' => 'no'), 
+                array('Shelfs.id' => $colocation->shelf_id
 
-           
+            )
+            );
+            $colocation->user_id = $this->Auth->user('id');
+
+
+
             if ($this->Colocations->save($colocation)) {
                 $this->Flash->success(__('The colocation has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -81,7 +81,7 @@ class ColocationsController extends AppController
 
         
 
-    
+
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
         $racks=null;
@@ -102,18 +102,18 @@ class ColocationsController extends AppController
         $groups = $rackss->find();
         $groups->matching('Shelfs', function ($q) use ($location) {
             return $q->where(['Shelfs.location_id' => $location, 'Shelfs.free' => 'yes' ]);
-});
+        });
         $groups ->select(['Racks.name','Racks.id'])
-    ->distinct(['Racks.name']);
+        ->distinct(['Racks.name']);
         
         $groups=$groups->toArray();
 
-       
+
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
         $this->render(false);
     }
-    
+
     public function getshelf()
     {
         $rack_id = (int)$this->request->getQuery('location');
@@ -145,11 +145,11 @@ class ColocationsController extends AppController
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
             $this->loadModel('Shelfs');
             $this->Shelfs->updateAll(
-                                array('Shelfs.free' => 'no'), 
-                                array('Shelfs.id' => $colocation->shelf_id
-        
-    )
-);
+                array('Shelfs.free' => 'no'), 
+                array('Shelfs.id' => $colocation->shelf_id
+
+            )
+            );
             if ($this->Colocations->save($colocation)) {
                 $this->Flash->success(__('The colocation has been saved.'));
 
@@ -180,11 +180,11 @@ class ColocationsController extends AppController
         if ($this->Colocations->delete($colocation)) {
             $this->loadModel('Shelfs');
             $this->Shelfs->updateAll(
-                                array('Shelfs.free' => 'yes'), 
-                                array('Shelfs.id' => $colocation->shelf_id
-        
-    )
-);
+                array('Shelfs.free' => 'yes'), 
+                array('Shelfs.id' => $colocation->shelf_id
+
+            )
+            );
             $this->Flash->success(__('The colocation has been deleted.'));
         } else {
             $this->Flash->error(__('The colocation could not be deleted. Please, try again.'));
@@ -194,24 +194,24 @@ class ColocationsController extends AppController
     }
 
     public function isAuthorized($user)
-{
+    {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['add','edit', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
-        return true;
-    }
-
-    // The owner of an article can edit and delete it
-    if (in_array($this->request->getParam('action'), ['delete'])) {
-        $articleId = (int)$this->request->getParam('pass.0');
-        
-        if ($this->Colocations->isOwnedBy($articleId, $user['id'])) {
+        if (in_array($this->request->getParam('action'), ['add','edit', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
             return true;
         }
+
+    // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), ['delete'])) {
+            $articleId = (int)$this->request->getParam('pass.0');
+
+            if ($this->Colocations->isOwnedBy($articleId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 
-    return parent::isAuthorized($user);
-}
 
 
-
-}
+    }

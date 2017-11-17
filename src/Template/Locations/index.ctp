@@ -18,14 +18,6 @@
         
         </ul>
 
-
-
-        
-        <!-- <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
-    -->
     </ul>
 </nav>
 <div class="locations index large-9 medium-8 columns content">
@@ -43,7 +35,7 @@
             <?php foreach ($locations as $location): ?>
             <tr>
                 <td><?= $this->Number->format($location->id) ?></td>
-                <td><?= h($location->name) ?></td>
+                <td><?= $this->Html->link(__($location->name), ['action' => 'view', $location->id]) ?></td>
                 <td><?= h($location->address) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $location->id]) ?>

@@ -1,10 +1,10 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Rack $rack
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    /**
+    * @var \App\View\AppView $this
+    * @var \App\Model\Entity\Rack $rack
+    */
+    ?>
+    <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         
@@ -13,17 +13,10 @@
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?> </li>
-        <!-- 
-        <li><?= $this->Html->link(__('Edit Rack'), ['action' => 'edit', $rack->id]) ?> </li>
-        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('New Rack'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?> </li>
         
-        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?> </li>
-    -->
     </ul>
-</nav>
-<div class="racks view large-9 medium-8 columns content">
+    </nav>
+    <div class="racks view large-9 medium-8 columns content">
     <h3><?= h($rack->name) ?></h3>
     <table class="vertical-table">
         <tr>
@@ -59,40 +52,40 @@
             </tr>
             <?php foreach ($rack->colocations as $colocations): ?>
 
-                 <?php 
+               <?php 
                 //Location,Rack and Shelf ids are replaced with their respective names
-                $locid=$colocations->location_id;
-                $rackid=$colocations->rack_id;
-                $shelfid=$colocations->shelf_id;
-                $customerid=$colocations->customer_id;
-                $userid=$colocations->user_id;
+               $locid=$colocations->location_id;
+               $rackid=$colocations->rack_id;
+               $shelfid=$colocations->shelf_id;
+               $customerid=$colocations->customer_id;
+               $userid=$colocations->user_id;
 
-                $customers=$customer->find();
+               $customers=$customer->find();
 
-    $customers->select(['Customers.name'])
-    ->distinct(['Customers.number'])->where(['Customers.id'=>$customerid]);
-    $customers=$customers->toArray();
+               $customers->select(['Customers.name'])
+               ->distinct(['Customers.number'])->where(['Customers.id'=>$customerid]);
+               $customers=$customers->toArray();
 
-                $locations=$loc->find();
+               $locations=$loc->find();
 
-        $locations->select(['Locations.name'])
-    ->distinct(['Locations.name'])->where(['Locations.id'=>$locid]);
-    $locations=$locations->toArray();
-    
-    $shelfs=$shelf->find();
+               $locations->select(['Locations.name'])
+               ->distinct(['Locations.name'])->where(['Locations.id'=>$locid]);
+               $locations=$locations->toArray();
 
-    $shelfs->select(['Shelfs.number'])
-    ->distinct(['Shelfs.number'])->where(['Shelfs.id'=>$shelfid]);
-    $shelfs=$shelfs->toArray();
+               $shelfs=$shelf->find();
 
-    $users=$user->find();
+               $shelfs->select(['Shelfs.number'])
+               ->distinct(['Shelfs.number'])->where(['Shelfs.id'=>$shelfid]);
+               $shelfs=$shelfs->toArray();
 
-    $users->select(['Users.name'])
-    ->distinct(['Users.name'])->where(['Users.id'=>$userid]);
-    $users=$users->toArray();
-    #var_dump($group);die();
+               $users=$user->find();
 
-                ?>
+               $users->select(['Users.name'])
+               ->distinct(['Users.name'])->where(['Users.id'=>$userid]);
+               $users=$users->toArray();
+
+
+               ?>
 
             <tr>
                 <td><?= h($colocations->id) ?></td>
@@ -144,4 +137,4 @@
         </table>
         <?php endif; ?>
     </div>
-</div>
+    </div>

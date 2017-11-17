@@ -1,17 +1,17 @@
 <?php
-namespace App\Controller;
+    namespace App\Controller;
 
-use App\Controller\AppController;
+    use App\Controller\AppController;
 
-/**
- * Shelfs Controller
- *
- * @property \App\Model\Table\ShelfsTable $Shelfs
- *
- * @method \App\Model\Entity\Shelf[] paginate($object = null, array $settings = [])
- */
-class ShelfsController extends AppController
-{
+    /**
+    * Shelfs Controller
+    *
+    * @property \App\Model\Table\ShelfsTable $Shelfs
+    *
+    * @method \App\Model\Entity\Shelf[] paginate($object = null, array $settings = [])
+    */
+    class ShelfsController extends AppController
+    {
 
     /**
      * Index method
@@ -115,4 +115,14 @@ class ShelfsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-}
+
+    public function isAuthorized($user)
+    {
+    // All registered users can add articles
+        if (in_array($this->request->getParam('action'), ['index','view'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+    }
+    }
