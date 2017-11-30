@@ -2,6 +2,7 @@
     namespace App\Controller;
 
     use App\Controller\AppController;
+    use Cake\ORM\TableRegistry;
 
     /**
     * Shelfs Controller
@@ -56,17 +57,39 @@
         $shelf = $this->Shelfs->newEntity();
         if ($this->request->is('post')) {
             $shelf = $this->Shelfs->patchEntity($shelf, $this->request->getData());
-            if ($this->Shelfs->save($shelf)) {
+            if ($result=$this->Shelfs->save($shelf)) {
                 $this->Flash->success(__('The shelf has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The shelf could not be saved. Please, try again.'));
         }
         $locations = $this->Shelfs->Locations->find('list', ['limit' => 200]);
-        $racks = $this->Shelfs->Racks->find('list', ['limit' => 200]);
+        $racks=null;
         $this->set(compact('shelf', 'locations', 'racks'));
         $this->set('_serialize', ['shelf']);
+    }
+
+
+    public function getrack()
+    {
+        $location = (int)$this->request->getQuery('location');
+        
+        $this->viewBuilder()->className('Json');
+        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
+        $this->loadModel('Racks');
+        $rackss = TableRegistry::get('Racks');
+        $groups = $rackss->find();
+       
+        $groups ->select(['Racks.name','Racks.id'])
+        ->distinct(['Racks.name'])->where(['Racks.location_id' => $location ]);;
+        
+        $groups=$groups->toArray();
+
+
+        $this->set(compact('groups'));
+        $this->set('_serialize', ['groups']);
+        $this->render(false);
     }
 
     /**
@@ -86,7 +109,7 @@
             if ($this->Shelfs->save($shelf)) {
                 $this->Flash->success(__('The shelf has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect( ['controller' => 'Racks','action' => 'view', $shelf->rack_id]); 
             }
             $this->Flash->error(__('The shelf could not be saved. Please, try again.'));
         }

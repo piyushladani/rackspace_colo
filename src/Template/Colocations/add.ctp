@@ -5,10 +5,20 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Colocations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
+      
+        <li class="heading"><?=__('Colocations') ?></li>
+        <ul>
+        <li><?= $this->Html->link(__('List Customers within Colocation'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+        
+        </ul>
+        
+        <li class="heading"><?=__('Demarcation') ?></li>
+         <ul>
+       
+        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
+        </ul>
         
     </ul>
 </nav>
@@ -27,8 +37,8 @@ use Cake\Routing\Router;
         echo $this->Form->control('customer_id', ['type'=>'hidden']);
         echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc','empty' => '-Select Location-']);
         echo $this->Form->control('rack_id',['options' => $racks,'onchange'=>'selectShelf()','id'=>'rac','empty' => '-Select Rack-']);
-        echo $this->Form->control('shelf_id',['options' => $shelfs,'id'=>'shelf']);
-        echo $this->Form->control('he');
+        echo $this->Form->control('shelf_id',['options' => $shelfs,'onchange'=>'selectHU()','id'=>'shelf']);
+        echo $this->Form->input('he',['readonly' => 'readonly']);
         echo $this->Form->control('user', ['value' => $users,'readonly' => 'readonly']);
         ?>
     </fieldset>
@@ -45,7 +55,7 @@ use Cake\Routing\Router;
                 event.preventDefault();
                 $("#customer").val(ui.item.label);
                 $("#customer-id").val(ui.item.value);
-                
+
             },
             focus: function(event, ui) {
                 event.preventDefault();

@@ -13,6 +13,7 @@
         <?= $this->Form->create($user); ?>
         	<?= $this->Form->input('name');?>
             <?= $this->Form->input('username');?>
+             <?= $this->Form->input('email',array('type'=>'email'));?>
             <?= $this->Form->input('password',array('type'=>'password'));?>
             <?= $this->Form->input('confirm_password',array('type'=>'password'));?>
             <?= $this->Form->submit('Register',array('class'=>'button'));?>

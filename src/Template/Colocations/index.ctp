@@ -5,20 +5,20 @@
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-   <ul class="side-nav">
-        <li class="heading"><?=__('Colocations') ?></li>
-        <ul>
+ <ul class="side-nav">
+    <li class="heading"><?=__('Colocations') ?></li>
+    <ul>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
-        </ul>
-        <li class="heading"><?=__('Customers') ?></li>
-         <ul>
+    </ul>
+    <li class="heading"><?=__('Customers') ?></li>
+    <ul>
         <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
         
-        </ul>
-
     </ul>
+
+</ul>
 </nav>
 <div class="colocations index large-9 medium-8 columns content">
     <h3><?= __('Colocations') ?></h3>
@@ -38,20 +38,20 @@
         </thead>
         <tbody>
             <?php foreach ($colocations as $colocation): ?>
-            <tr>
-                <td><?= $this->Number->format($colocation->id) ?></td>
-                <td><?= $colocation->has('customer') ? $this->Html->link($colocation->customer->name, ['controller' => 'Customers', 'action' => 'view', $colocation->customer->id]) : '' ?></td>
-                <td><?= $colocation->has('location') ? $this->Html->link($colocation->location->name, ['controller' => 'Locations', 'action' => 'view', $colocation->location->id]) : '' ?></td>
-                <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
-                <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
-                <td><?= $this->Number->format($colocation->he) ?></td>
-                <td><?= $colocation->has('user') ? $this->Html->link($colocation->user->name, ['controller' => 'Users', 'action' => 'view', $colocation->user->id]) : '' ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $colocation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $colocation->id)]) ?>
-                </td>
-            </tr>
+                <tr>
+                    <td><?= $this->Number->format($colocation->id) ?></td>
+                    <td><?= $colocation->has('customer') ? $this->Html->link($colocation->customer->name, ['controller' => 'Customers', 'action' => 'view', $colocation->customer->id]) : '' ?></td>
+                    <td><?= $colocation->has('location') ? $this->Html->link($colocation->location->name, ['controller' => 'Locations', 'action' => 'view', $colocation->location->id]) : '' ?></td>
+                    <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
+                    <td><?= $colocation->has('shelf') ? $this->Html->link($colocation->shelf->number, ['controller' => 'Shelfs', 'action' => 'view', $colocation->shelf->id]) : '' ?></td>
+                    <td><?= $this->Number->format($colocation->he) ?></td>
+                    <td><?= $colocation->has('user') ? $this->Html->link($colocation->user->name, ['controller' => 'Users', 'action' => 'view', $colocation->user->id]) : '' ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>
+                        
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>

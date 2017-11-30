@@ -5,11 +5,30 @@
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+    
+     <ul class="side-nav">
+        <li class="heading"><?=__('Location') ?></li>
+         <ul>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+        </ul>
+        <li class="heading"><?=__('Colocations') ?></li>
+        <ul>
+        <li><?= $this->Html->link(__('List Customers within Colocation'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+       
+        </ul>
+        
+        <li class="heading"><?=__('Demarcation') ?></li>
+         <ul>
+       
+        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
+        </ul>
+       
+
     </ul>
+
+    
 </nav>
 <div class="racks index large-9 medium-8 columns content">
     <h3><?= __('Racks') ?></h3>
@@ -18,7 +37,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('free') ?></th>
+                
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -28,7 +47,7 @@
             <tr>
                 <td><?= $this->Number->format($rack->id) ?></td>
                 <td><?= h($rack->name) ?></td>
-                <td><?= h($rack->free) ?></td>
+               
                 <td><?= $rack->has('location') ? $this->Html->link($rack->location->name, ['controller' => 'Locations', 'action' => 'view', $rack->location->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $rack->id]) ?>

@@ -71,7 +71,7 @@
         }
     }
     }
-    
+
     public function resetPassword($token = null) {
     if (!empty($token)) {
         $user = $this->Users->findByPasswordResetToken($token)->first();
@@ -108,7 +108,7 @@
 
 
     if($this->request->is('post')){
-        $user=$this->Users->patchEntity($user,$this->request->data);
+        $user=$this->Users->patchEntity($user,$this->request->data,['validate' => 'register']);
         if($this->Users->save($user)){
             $this->Flash->success('You are registered and can login');
                 //
@@ -164,10 +164,10 @@
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
+            if ($result=$this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -227,7 +227,7 @@
     public function isAuthorized($user)
     {
     // All registered users can add articles
-        if (in_array($this->request->getParam('action'), ['index','view'])) {
+        if (in_array($this->request->getParam('action'), ['view'])) {
             return true;
         }
 

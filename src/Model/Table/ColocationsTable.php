@@ -74,7 +74,7 @@ class ColocationsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('he')
+            
             ->requirePresence('he', 'create')
             ->notEmpty('he');
 

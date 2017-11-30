@@ -68,9 +68,9 @@ class RacksTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->scalar('free')
-            ->requirePresence('free', 'create')
-            ->notEmpty('free');
+            ->scalar('location_id')
+            ->requirePresence('location_id', 'create')
+            ->notEmpty('location_id');
 
         return $validator;
     }

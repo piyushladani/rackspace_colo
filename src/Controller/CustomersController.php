@@ -60,6 +60,8 @@
 
 
     $this->set('customers', $this->paginate($results));
+    $colo=$this->loadModel('Colocations');
+    $this->set(compact('colo'));
 
     $this->render('/Customers/index');
     }
@@ -73,9 +75,9 @@
         $customer = $this->Customers->newEntity();
         if ($this->request->is('post')) {
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());
-            if ($this->Customers->save($customer)) {
+            if ($result=$this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
@@ -149,7 +151,7 @@
     public function isAuthorized($user)
     {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['add', 'index','view','getall'])) {
+    if (in_array($this->request->getParam('action'), ['add','search', 'index','view','edit','getall'])) {
         return true;
     }
 

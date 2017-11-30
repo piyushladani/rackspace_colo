@@ -15,13 +15,15 @@
         <legend><?= __('Add User') ?></legend>
         <?php
             echo $this->Form->control('name');
-            echo $this->Form->control('email');
             echo $this->Form->control('username');
-            echo $this->Form->control('password');
+            echo $this->Form->input('email',array('type'=>'email'));
+            echo $this->Form->input('password',array('type'=>'password'));
+            echo $this->Form->input('confirm_password',array('type'=>'password'));
+
             echo $this->Form->control('role', [
             'options' => ['admin' => 'Admin', 'author' => 'Author']
         ]);
-            echo $this->Form->control('password_reset_token');
+            
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

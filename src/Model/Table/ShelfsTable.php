@@ -64,7 +64,7 @@ class ShelfsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('number')
+            
             ->requirePresence('number', 'create')
             ->notEmpty('number');
 
@@ -74,9 +74,19 @@ class ShelfsTable extends Table
             ->notEmpty('he');
 
         $validator
-            ->scalar('free')
+            
             ->requirePresence('free', 'create')
             ->notEmpty('free');
+
+        $validator
+            ->scalar('location_id')
+            ->requirePresence('location_id', 'create')
+            ->notEmpty('location_id');
+
+        $validator
+            ->scalar('rack_id')
+            ->requirePresence('rack_id', 'create')
+            ->notEmpty('rack_id');
 
         return $validator;
     }

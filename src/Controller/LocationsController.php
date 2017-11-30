@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * Locations Controller
@@ -46,8 +48,9 @@ class LocationsController extends AppController
         $customer=$this->loadModel('Customers');
         $loc=$this->loadModel('Locations');
         $user=$this->loadModel('Users');
+        $connection = ConnectionManager::get('default');
 
-        $this->set(compact('location','loc','rack','shelf','colo','customer','user'));
+        $this->set(compact('location','loc','rack','shelf','colo','customer','user','connection'));
         $this->set('_serialize', ['location']);
     }
 
@@ -61,10 +64,10 @@ class LocationsController extends AppController
         $location = $this->Locations->newEntity();
         if ($this->request->is('post')) {
             $location = $this->Locations->patchEntity($location, $this->request->getData());
-            if ($this->Locations->save($location)) {
+            if ($result=$this->Locations->save($location)) {
                 $this->Flash->success(__('The location has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                 return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
@@ -120,7 +123,7 @@ class LocationsController extends AppController
      public function isAuthorized($user)
 {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['index','view'])) {
+    if (in_array($this->request->getParam('action'), ['index','view','edit'])) {
         return true;
     }
     

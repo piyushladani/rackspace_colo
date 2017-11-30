@@ -33,6 +33,7 @@ function selectRack(){
   }
 
   function selectShelf(){
+     html=null;
 
   
   //var dataSet = {10: 123};
@@ -57,9 +58,45 @@ function selectRack(){
         }
                 
                 
-        console.log('hi');
+        
 
         document.getElementById("shelf").innerHTML = html;
+
+            }
+            
+        }
+
+  }
+
+  function selectHU(){
+
+  
+  //var dataSet = {10: 123};
+ html=null;
+  var request = new XMLHttpRequest();
+  
+  request.open('GET',"http://localhost:8888/colocation/colocation-app/colocations/gethu?location="+document.getElementById("shelf").value, true);
+  request.send(null);
+  request.onreadystatechange=function()
+        {
+            if (request.readyState==4 && request.status==200)
+            {
+              console.log(request.responseText);
+                
+                var json = JSON.parse(request.responseText);
+
+                
+               
+
+            for(var key in json['groups'][0]) {
+            html = json['groups'][0][key]
+            
+        }
+                
+                
+        console.log(html);
+
+        document.getElementById("he").value = html;
 
             }
             

@@ -61,10 +61,10 @@
         $rack = $this->Racks->newEntity();
         if ($this->request->is('post')) {
             $rack = $this->Racks->patchEntity($rack, $this->request->getData());
-            if ($this->Racks->save($rack)) {
+            if ($result=$this->Racks->save($rack)) {
                 $this->Flash->success(__('The rack has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The rack could not be saved. Please, try again.'));
         }

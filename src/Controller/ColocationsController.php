@@ -72,9 +72,9 @@
 
 
 
-            if ($this->Colocations->save($colocation)) {
-                $this->Flash->success(__('The colocation has been saved.'));
-                return $this->redirect(['action' => 'index']);
+            if ($result=$this->Colocations->save($colocation)) {
+                $this->Flash->success(__('The requested colocation has been assigned.'));
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
         }
@@ -86,8 +86,9 @@
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
         $racks=null;
         $shelfs=null;
+        $he=null;
         $users = $this->request->session()->read('Auth.User.name');
-        $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs','users'));
+        $this->set(compact('colocation', 'customers', 'locations', 'racks','shelfs','users','he'));
         $this->set('_serialize', ['colocation']);
     }
 
@@ -122,7 +123,28 @@
         $this->viewBuilder()->className('Json');
         $this->set('_jsonOptions', JSON_FORCE_OBJECT);
         $this->loadModel('Shelfs');
+
         $groups=$this->Shelfs->find('list',['conditions'=>array('Shelfs.rack_id'=> $rack_id,'Shelfs.free'=> 'yes')]);
+        $this->set(compact('groups'));
+        $this->set('_serialize', ['groups']);
+        $this->render(false);
+    }
+
+
+    public function gethu()
+    {
+        $shelf_id = (int)$this->request->getQuery('location');
+        
+        
+        $this->viewBuilder()->className('Json');
+        $this->set('_jsonOptions', JSON_FORCE_OBJECT);
+        $this->loadModel('Shelfs');
+        $shelf = TableRegistry::get('Shelfs');
+        $groups = $shelf->find();
+        $groups=$groups->select(['Shelfs.he'])->where(['Shelfs.id'=> $shelf_id]);
+        
+        
+        
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
         $this->render(false);
@@ -196,7 +218,7 @@
     public function isAuthorized($user)
     {
     // All registered users can add articles
-        if (in_array($this->request->getParam('action'), ['add','edit', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
+        if (in_array($this->request->getParam('action'), ['add', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
             return true;
         }
 

@@ -52,17 +52,17 @@ $cakeDescription = 'Welcome to DE-CIX Colocation';
 </div>
 
     <nav class="top-bar expanded" data-topbar role="navigation">
+        
+<div class="top-bar-section">
         <ul class="title-area large-3 medium-4 columns">
             <?php if($loggedIn):?>
-            <li class="name">
-            <h1><a href="http://localhost:8888/colocation/colocation-app/locations">Home</a></h1>
-            </li><li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
+            <li><a href="http://localhost:8888/colocation/colocation-app/locations">Home</a></li>
+            <li><a href=""><?= $this->fetch('title') ?></a></li>
+           
             <?php endif;?>
 
         </ul>
-        <div class="top-bar-section">
+        
             <ul class="right">
                 <?php if($loggedIn):?>
 

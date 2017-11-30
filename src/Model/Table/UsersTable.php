@@ -66,6 +66,58 @@ class UsersTable extends Table
             ->scalar('password')
             ->requirePresence('password', 'create')
             ->notEmpty('password');
+         $validator
+            ->scalar('confirm_password')
+            ->requirePresence('confirm_password', 'create')
+            ->notEmpty('confirm_password');
+        $validator
+            ->add('confirm_password',[
+                'compare' => [
+                'rule' => ['compareWith', 'password'],
+                'message' => 'Sorry, password and confirm password does not matched'
+                ]
+                ]);
+
+
+        $validator
+            ->scalar('role')
+            ->requirePresence('role', 'create')
+            ->notEmpty('role')
+            ->add('role', 'inList', [
+                'rule' => ['inList', ['admin', 'author']],
+                'message' => 'Please enter a valid role'
+            ]);
+
+        
+
+        return $validator;
+    }
+
+    public function validationRegister(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        $validator
+            ->scalar('name')
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
+
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmpty('email');
+
+        $validator
+            ->scalar('username')
+            ->requirePresence('username', 'create')
+            ->notEmpty('username');
+
+        $validator
+            ->scalar('password')
+            ->requirePresence('password', 'create')
+            ->notEmpty('password');
 
         $validator
             ->scalar('confirm_password')
@@ -79,22 +131,15 @@ class UsersTable extends Table
                 ]
                 ]);
 
-        $validator
-            ->scalar('role')
-            ->requirePresence('role', 'create')
-            ->notEmpty('role')
-            ->add('role', 'inList', [
-                'rule' => ['inList', ['admin', 'author']],
-                'message' => 'Please enter a valid role'
-            ]);
-
-        $validator
-            ->scalar('password_reset_token')
-            ->requirePresence('password_reset_token', 'create')
-            ->notEmpty('password_reset_token');
+       
+        
 
         return $validator;
     }
+
+
+
+
     public function validationPassword(Validator $validator)
     {
         $validator

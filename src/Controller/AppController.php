@@ -18,6 +18,8 @@
     use Cake\Event\Event;
     use Cake\Core\Configure;
     use Cake\Mailer\MailerAwareTrait;
+    use Cake\Datasource\ConnectionManager;
+
 
     /**
     * Application Controller

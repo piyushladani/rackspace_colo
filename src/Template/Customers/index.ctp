@@ -6,35 +6,27 @@
     ?>
     <nav class="large-3 medium-4 columns" id="actions-sidebar">
         <ul class="side-nav">
-        <li class="heading"><?=__('Colocations') ?></li>
-        <ul>
-        <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
+            <li class="heading"><?=__('Colocations') ?></li>
+            <ul>
+                <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
+            </ul>
+            <li class="heading"><?=__('Customers') ?></li>
+            <ul>
+                <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
+
+            </ul>
+
         </ul>
-        <li class="heading"><?=__('Customers') ?></li>
-         <ul>
-        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
-        
-        </ul>
-
-
-
-        
-        <!-- <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Shelfs'), ['controller' => 'Shelfs', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
-    -->
-    </ul>
     </nav>
     <div class="customers index large-9 medium-8 columns content">
         <h3><?= __('Customers') ?></h3>
         <?php
 
         echo $this->Form->create(null, [
-         'url' => ['controller' => 'Customers', 'action' => 'search']]);
-        echo $this->Form->control('search customer');
+           'url' => ['controller' => 'Customers', 'action' => 'search']]);
+        echo $this->Form->control('search customer',['placeholder'=>'Type customer name or number']);
         echo $this->Form->submit('Search');
         echo $this->Form->end();
         ?><br>
