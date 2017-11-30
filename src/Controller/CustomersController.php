@@ -1,7 +1,7 @@
 <?php
-    namespace App\Controller;
-    use App\Controller\AppController;
-    use Cake\Event\Event;
+namespace App\Controller;
+use App\Controller\AppController;
+use Cake\Event\Event;
     /**
     * Customers Controller
     *
@@ -51,20 +51,20 @@
 
           if(!empty($this->request->data) && isset($this->request->data) )
           {
-           $search_key=$this->request->data["search_customer"];
-           $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
+             $search_key=$this->request->data["search_customer"];
+             $results=$this->Customers->find('all')->where( array("OR" =>array("Customers.name LIKE" => '%'.$search_key.'%', "Customers.number LIKE" => $search_key)));
 
-       }
-    }
+         }
+     }
 
 
 
-    $this->set('customers', $this->paginate($results));
-    $colo=$this->loadModel('Colocations');
-    $this->set(compact('colo'));
+     $this->set('customers', $this->paginate($results));
+     $colo=$this->loadModel('Colocations');
+     $this->set(compact('colo'));
 
-    $this->render('/Customers/index');
-    }
+     $this->render('/Customers/index');
+ }
     /**
      * Add method
      *
@@ -140,16 +140,16 @@
             ]);
             $resultsArr = [];
             foreach ($results as $result) {
-               $resultsArr[] =['label' => $result['name'], 'value' => $result['id']];
-           }
+             $resultsArr[] =['label' => $result['name'], 'value' => $result['id']];
+         }
         #echo json_encode($resultsArr);
-           $this->response->body(json_encode($resultsArr));
-       }
-       $this->autoRender = false;
-    }
+         $this->response->body(json_encode($resultsArr));
+     }
+     $this->autoRender = false;
+ }
 
-    public function isAuthorized($user)
-    {
+ public function isAuthorized($user)
+ {
     // All registered users can add articles
     if (in_array($this->request->getParam('action'), ['add','search', 'index','view','edit','getall'])) {
         return true;
@@ -157,10 +157,6 @@
 
 
     return parent::isAuthorized($user);
-    }
+}
 
-
-
-
-
-    }
+}

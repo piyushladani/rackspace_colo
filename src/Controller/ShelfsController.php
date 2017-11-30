@@ -70,7 +70,7 @@
         $this->set('_serialize', ['shelf']);
     }
 
-
+    //this function is called by scriptshelf.js
     public function getrack()
     {
         $location = (int)$this->request->getQuery('location');
@@ -80,13 +80,9 @@
         $this->loadModel('Racks');
         $rackss = TableRegistry::get('Racks');
         $groups = $rackss->find();
-       
         $groups ->select(['Racks.name','Racks.id'])
         ->distinct(['Racks.name'])->where(['Racks.location_id' => $location ]);;
-        
         $groups=$groups->toArray();
-
-
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
         $this->render(false);

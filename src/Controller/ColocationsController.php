@@ -1,9 +1,9 @@
 <?php
-    namespace App\Controller;
+namespace App\Controller;
 
-    use App\Controller\AppController;
-    use Cake\ORM\TableRegistry;
-    use Cake\Event\Event;
+use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 
     /**
@@ -79,9 +79,6 @@
             $this->Flash->error(__('The colocation could not be saved. Please, try again.'));
         }
 
-        
-
-
         $customers = $this->Colocations->Customers->find('list', ['limit' => 200]);
         $locations = $this->Colocations->Locations->find('list', ['limit' => 200]);
         $racks=null;
@@ -92,6 +89,7 @@
         $this->set('_serialize', ['colocation']);
     }
 
+    //getrack(), getshelf() and gethu() are called from scripts.js. Also, getrack() is called from scriptshelf.js
     public function getrack()
     {
         $location = (int)$this->request->getQuery('location');
@@ -106,9 +104,7 @@
         });
         $groups ->select(['Racks.name','Racks.id'])
         ->distinct(['Racks.name']);
-        
         $groups=$groups->toArray();
-
 
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
@@ -118,12 +114,9 @@
     public function getshelf()
     {
         $rack_id = (int)$this->request->getQuery('location');
-        
-        
         $this->viewBuilder()->className('Json');
         $this->set('_jsonOptions', JSON_FORCE_OBJECT);
         $this->loadModel('Shelfs');
-
         $groups=$this->Shelfs->find('list',['conditions'=>array('Shelfs.rack_id'=> $rack_id,'Shelfs.free'=> 'yes')]);
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
@@ -134,16 +127,11 @@
     public function gethu()
     {
         $shelf_id = (int)$this->request->getQuery('location');
-        
-        
         $this->viewBuilder()->className('Json');
         $this->set('_jsonOptions', JSON_FORCE_OBJECT);
-        $this->loadModel('Shelfs');
         $shelf = TableRegistry::get('Shelfs');
         $groups = $shelf->find();
         $groups=$groups->select(['Shelfs.he'])->where(['Shelfs.id'=> $shelf_id]);
-        
-        
         
         $this->set(compact('groups'));
         $this->set('_serialize', ['groups']);
@@ -205,7 +193,7 @@
                 array('Shelfs.free' => 'yes'), 
                 array('Shelfs.id' => $colocation->shelf_id
 
-            )
+            ) //making the shelf free once colocation is deleted
             );
             $this->Flash->success(__('The colocation has been deleted.'));
         } else {
@@ -236,4 +224,4 @@
 
 
 
-    }
+}

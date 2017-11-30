@@ -67,7 +67,7 @@ class LocationsController extends AppController
             if ($result=$this->Locations->save($location)) {
                 $this->Flash->success(__('The location has been saved.'));
 
-                 return $this->redirect(['action' => 'view',$result->id]);
+                return $this->redirect(['action' => 'view',$result->id]);
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
@@ -120,14 +120,13 @@ class LocationsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-     public function isAuthorized($user)
-{
+    public function isAuthorized($user)
+    {
     // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['index','view','edit'])) {
-        return true;
+        if (in_array($this->request->getParam('action'), ['index','view','edit'])) {
+            return true;
+        }
+        
+        return parent::isAuthorized($user);
     }
-    
-
-    return parent::isAuthorized($user);
-}
 }
