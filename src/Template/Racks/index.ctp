@@ -35,7 +35,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
@@ -45,7 +45,7 @@
         <tbody>
             <?php foreach ($racks as $rack): ?>
             <tr>
-                <td><?= $this->Number->format($rack->id) ?></td>
+                
                 <td><?= h($rack->name) ?></td>
                
                 <td><?= $rack->has('location') ? $this->Html->link($rack->location->name, ['controller' => 'Locations', 'action' => 'view', $rack->location->id]) : '' ?></td>

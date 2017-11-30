@@ -15,8 +15,9 @@
         </ul>
         <li class="heading"><?=__('Colocations') ?></li>
          <ul>
+        <li><?= $this->Html->link(__('Assign Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
+        
         
         </ul>
     </ul>
@@ -29,18 +30,21 @@
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($customer->name) ?></td>
         </tr>
-      
+
         <tr>
             <th scope="row"><?= __('Number') ?></th>
             <td><?= h($customer->number) ?></td>
         </tr>
+        <?php
+
+      ?>
     </table>
     <div class="related">
         <h4><?= __('Related Colocations') ?></h4>
         <?php if (!empty($customer->colocations)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                
                 <th scope="col"><?= __('Location') ?></th>
                 <th scope="col"><?= __('Rack') ?></th>
                 <th scope="col"><?= __('Shelf Number') ?></th>
@@ -74,11 +78,10 @@
                 ->distinct(['Shelfs.number'])->where(['Shelfs.id'=>$shelfid]);
                 $shelfs=$shelfs->toArray();
 
-
                 ?>
             <tr>
 
-                <td><?= h($colocations->id) ?></td>
+                
                 <td><?= $this->Html->link($locations[0]["name"], ['controller' => 'Locations', 'action' => 'view', $locid]) ;?></td>
                 <td><?= h($racks[0]["name"]) ?></td>
                 <td><?= h($shelfs[0]["number"]) ?></td>

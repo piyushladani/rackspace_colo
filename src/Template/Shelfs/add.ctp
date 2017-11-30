@@ -38,7 +38,7 @@ use Cake\Routing\Router;
         <legend><?= __('Add Shelf') ?></legend>
         <?php
             echo $this->Form->control('number');
-            echo $this->Form->control('he',['value' => 5,'readonly' => 'readonly']);
+            echo $this->Form->control('he');
             echo $this->Form->control('free',['options' =>[ 'yes'=>'yes','no'=>'no']]);
             echo $this->Form->control('location_id', ['options' => $locations,'onchange'=>'selectRack()','id'=>'loc','empty' => '-Select Location-']);
             echo $this->Form->control('rack_id',['options' => $racks,'id'=>'rac','empty' => '-Select Rack-']);

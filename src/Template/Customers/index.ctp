@@ -33,7 +33,7 @@
         <table cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                    
                     <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('number','Customer Number') ?></th>
                     <th scope="col"><?= __('Total HU') ?></th>
@@ -63,7 +63,7 @@
                 }
                 ?> 
                 <tr>
-                    <td><?= $this->Number->format($customer->id) ?></td>
+                    
                     <td><?= $this->Html->link($customer->name, ['controller' => 'Customers', 'action' => 'view', $customer->id]) ?></td>
                     <td><?= h($customer->number) ?></td>
                     <td><?= h($count) ?></td>

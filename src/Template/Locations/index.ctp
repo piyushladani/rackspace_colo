@@ -33,7 +33,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+               
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('address') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -42,7 +42,7 @@
         <tbody>
             <?php foreach ($locations as $location): ?>
             <tr>
-                <td><?= $this->Number->format($location->id) ?></td>
+                
                 <td><?= $this->Html->link(__($location->name), ['action' => 'view', $location->id]) ?></td>
                 <td><?= h($location->address) ?></td>
                 <td class="actions">

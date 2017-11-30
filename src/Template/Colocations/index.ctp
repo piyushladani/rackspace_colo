@@ -26,7 +26,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+
                 <th scope="col"><?= $this->Paginator->sort('customer_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('rack_id') ?></th>
@@ -39,7 +39,7 @@
         <tbody>
             <?php foreach ($colocations as $colocation): ?>
                 <tr>
-                    <td><?= $this->Number->format($colocation->id) ?></td>
+                    
                     <td><?= $colocation->has('customer') ? $this->Html->link($colocation->customer->name, ['controller' => 'Customers', 'action' => 'view', $colocation->customer->id]) : '' ?></td>
                     <td><?= $colocation->has('location') ? $this->Html->link($colocation->location->name, ['controller' => 'Locations', 'action' => 'view', $colocation->location->id]) : '' ?></td>
                     <td><?= $colocation->has('rack') ? $this->Html->link($colocation->rack->name, ['controller' => 'Racks', 'action' => 'view', $colocation->rack->id]) : '' ?></td>
@@ -49,7 +49,7 @@
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $colocation->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $colocation->id]) ?>
-                        
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $colocation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $colocation->id)]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

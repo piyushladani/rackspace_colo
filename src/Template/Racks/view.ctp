@@ -48,7 +48,7 @@
         <?php if (!empty($rack->colocations)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+               
                 <th scope="col"><?= __('Customer Name') ?></th>
                 <th scope="col"><?= __('Customer Number') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
@@ -100,7 +100,7 @@
                ?>
 
             <tr>
-                <td><?= h($colocations->id) ?></td>
+                
                 <td><?= $this->Html->link(h($customersname[0]["name"]), ['controller' => 'Customers', 'action' => 'view', $customerid]) ; ?></td>
                 <td><?= h($customersnumber[0]["number"]) ?></td>
                 <td><?= h($locations[0]["name"]) ?></td>
@@ -122,7 +122,7 @@
     <div class="related">
         <h4><?= __('Shelves') ?></h4>
         <?php 
-        
+
         $locid=$rack->location_id;
         $locations=$loc->find();
 
@@ -134,7 +134,7 @@
         <?php if (!empty($rack->shelfs)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                
                 <th scope="col"><?= __('Number') ?></th>
                 <th scope="col"><?= __('Free') ?></th>
                 <th scope="col"><?= __('Location') ?></th>
@@ -143,7 +143,7 @@
             </tr>
             <?php foreach ($rack->shelfs as $shelfs): ?>
             <tr>
-                <td><?= h($shelfs->id) ?></td>
+                
                 <td><?= h($shelfs->number) ?></td>
                 <td><?= h($shelfs->free) ?></td>
                 

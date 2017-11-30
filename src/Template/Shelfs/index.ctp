@@ -5,15 +5,25 @@
  */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Shelf'), ['action' => 'add']) ?></li>
+     <ul class="side-nav">
+       
+       
+        <li class="heading"><?=__('Demarcation') ?></li>
+        <ul>
+        <li><?= $this->Html->link(__('List Shelfs'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Shelf'), ['controller' => 'Shelfs', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
+         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+         <li><?= $this->Html->link(__('List Racks'), ['controller' => 'Racks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Rack'), ['controller' => 'Racks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
+        
+        </ul>
+         <li class="heading"><?=__('Colocations') ?></li>
+        <ul>
+        <li><?= $this->Html->link(__('List Customers within Colocation'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List all Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
+        </ul>
+       
     </ul>
 </nav>
 <div class="shelfs index large-9 medium-8 columns content">
@@ -21,7 +31,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                
                 <th scope="col"><?= $this->Paginator->sort('number') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('he','HU') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('free') ?></th>
@@ -33,7 +43,7 @@
         <tbody>
             <?php foreach ($shelfs as $shelf): ?>
             <tr>
-                <td><?= $this->Number->format($shelf->id) ?></td>
+                
                 <td><?= $this->Number->format($shelf->number) ?></td>
                 <td><?= $this->Number->format($shelf->he) ?></td>
                 <td><?= h($shelf->free) ?></td>

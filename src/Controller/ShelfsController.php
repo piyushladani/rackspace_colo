@@ -43,7 +43,11 @@
             'contain' => ['Locations', 'Racks', 'Colocations']
         ]);
 
-        $this->set('shelf', $shelf);
+        $customer=$this->loadModel('Customers');
+        $user=$this->loadModel('Users');
+        $loc=$this->loadModel('Locations');
+        $rack=$this->loadModel('Racks');
+        $this->set(compact('rack','customer','loc','shelf','user'));
         $this->set('_serialize', ['shelf']);
     }
 
@@ -132,7 +136,7 @@
             $this->Flash->error(__('The shelf could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Racks','action' => 'view', $shelf->rack_id]);
     }
 
     public function isAuthorized($user)

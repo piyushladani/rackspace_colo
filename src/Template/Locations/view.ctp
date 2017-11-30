@@ -54,9 +54,10 @@
         <?php if (!empty($location->racks)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Free') ?></th>
+                <th scope="col"><?= __('Number of total HU') ?></th>
                 <th scope="col"><?= __('Number of Free HU') ?></th>
                 
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -75,17 +76,27 @@
                 //counting number of free HU in particular rack
                 $shelfs=$shelf->find();
                 $shelfs->select(['Shelfs.free'])->where(['Shelfs.free'=>'yes','Shelfs.rack_id'=>$rackid]);
-                $results = $connection->execute("SELECT he FROM shelfs WHERE shelfs.rack_id=$rackid AND shelfs.free='yes'")->fetchAll('assoc');
-                $count=0;
-                if (!empty($results)){
-                foreach ($results as $res) {
+                $freehu = $connection->execute("SELECT he FROM shelfs WHERE shelfs.rack_id=$rackid AND shelfs.free='yes'")->fetchAll('assoc');
+                $totalhu = $connection->execute("SELECT he FROM shelfs WHERE shelfs.rack_id=$rackid ")->fetchAll('assoc');
+                $freehucount=0;
+                $totalhucount=0;
+                if (!empty($freehu)){
+                foreach ($freehu as $res) {
                     
-                    $count=$res['he']+$count;
+                    $freehucount=$res['he']+$freehucount;
+
+                }
+                } 
+
+                if (!empty($totalhu)){
+                foreach ($totalhu as $res) {
+                    
+                    $totalhucount=$res['he']+$totalhucount;
 
                 }
                 } 
                 
-                if($count==0){
+                if($freehucount==0){
                     $free='no';
                 }
                 else{
@@ -94,10 +105,11 @@
 
                 ?>
             <tr>
-                <td><?= h($racks->id) ?></td>
+                
                 <td><?= $this->Html->link($racks->name, ['controller' => 'Racks', 'action' => 'view', $racks->id]) ; ?></td>
                 <td><?= h($free) ?></td>
-                <td><?= h($count) ?></td>
+                <td><?= h($totalhucount) ?></td>
+                <td><?= h($freehucount) ?></td>
                 
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Racks', 'action' => 'view', $racks->id]) ?>

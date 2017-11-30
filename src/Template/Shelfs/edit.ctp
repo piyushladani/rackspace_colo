@@ -33,8 +33,8 @@
             echo $this->Form->control('number');
             echo $this->Form->control('he');
             echo $this->Form->control('free',['options' =>[ 'yes'=>'yes','no'=>'no']]);
-            echo $this->Form->control('location_id', ['options' => $locations]);
-            echo $this->Form->control('rack_id', ['options' => $racks]);
+            echo $this->Form->control('location_id', ['options' => $locations,'disabled'=>true]);
+            echo $this->Form->control('rack_id', ['options' => $racks,'disabled'=>true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

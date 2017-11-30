@@ -62,17 +62,18 @@ use Cake\Event\Event;
         if ($this->request->is('post')) {
             $colocation = $this->Colocations->patchEntity($colocation, $this->request->getData());
             $this->loadModel('Shelfs');
-            $this->Shelfs->updateAll(
-                array('Shelfs.free' => 'no'), 
-                array('Shelfs.id' => $colocation->shelf_id
-
-            )
-            );
+            
             $colocation->user_id = $this->Auth->user('id');
 
 
 
             if ($result=$this->Colocations->save($colocation)) {
+                $this->Shelfs->updateAll(
+                array('Shelfs.free' => 'no'), 
+                array('Shelfs.id' => $colocation->shelf_id
+
+            )
+            );
                 $this->Flash->success(__('The requested colocation has been assigned.'));
                 return $this->redirect(['action' => 'view',$result->id]);
             }
