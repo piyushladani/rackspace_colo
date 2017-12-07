@@ -51,7 +51,7 @@
                
                 <th scope="col"><?= __('Customer Name') ?></th>
                 <th scope="col"><?= __('Customer Number') ?></th>
-                <th scope="col"><?= __('Location Id') ?></th>
+                <th scope="col"><?= __('Location') ?></th>
                 
                 <th scope="col"><?= __('Shelf') ?></th>
                 <th scope="col"><?= __('HU') ?></th>

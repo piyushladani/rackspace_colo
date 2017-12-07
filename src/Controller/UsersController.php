@@ -226,9 +226,11 @@
 
     public function isAuthorized($user)
     {
-    // All registered users can add articles
-        if (in_array($this->request->getParam('action'), ['view'])) {
+        //users with author role
+        if (in_array($this->request->getParam('action'), ['index'])) {
+           if (isset($user['role']) && $user['role'] === 'author') {
             return true;
+        }
         }
 
         return parent::isAuthorized($user);

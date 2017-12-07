@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller;
-use App\Controller\AppController;
-use Cake\Event\Event;
+    namespace App\Controller;
+    use App\Controller\AppController;
+    use Cake\Event\Event;
     /**
     * Customers Controller
     *
@@ -57,14 +57,12 @@ use Cake\Event\Event;
          }
      }
 
-
-
      $this->set('customers', $this->paginate($results));
      $colo=$this->loadModel('Colocations');
      $this->set(compact('colo'));
 
      $this->render('/Customers/index');
- }
+    }
     /**
      * Add method
      *
@@ -146,17 +144,26 @@ use Cake\Event\Event;
          $this->response->body(json_encode($resultsArr));
      }
      $this->autoRender = false;
- }
-
- public function isAuthorized($user)
- {
-    // All registered users can add articles
-    if (in_array($this->request->getParam('action'), ['add','search', 'index','view','edit','getall'])) {
-        return true;
     }
 
+    public function isAuthorized($user)
+    {
+        
+        //users with visitor role
+        if (in_array($this->request->getParam('action'), ['index','view','getall'])) {
+            if (isset($user['role']) && $user['role'] === 'visitor') {
+            return true;
+        }
+        }
+
+        //users with author role
+        if (in_array($this->request->getParam('action'), ['add','search', 'index','view','edit','getall'])) {
+           if (isset($user['role']) && $user['role'] === 'author') {
+            return true;
+        }
+        }
 
     return parent::isAuthorized($user);
-}
+    }
 
-}
+    }

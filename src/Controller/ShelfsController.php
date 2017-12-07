@@ -141,9 +141,18 @@
 
     public function isAuthorized($user)
     {
-    // All registered users can add articles
+        //users with visitor role
         if (in_array($this->request->getParam('action'), ['index','view'])) {
+            if (isset($user['role']) && $user['role'] === 'visitor') {
             return true;
+        }
+        }
+
+        //users with author role
+        if (in_array($this->request->getParam('action'), ['index','view'])) {
+           if (isset($user['role']) && $user['role'] === 'author') {
+            return true;
+        }
         }
 
         return parent::isAuthorized($user);

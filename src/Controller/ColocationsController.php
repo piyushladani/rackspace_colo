@@ -206,18 +206,18 @@ use Cake\Event\Event;
 
     public function isAuthorized($user)
     {
-    // All registered users can add articles
-        if (in_array($this->request->getParam('action'), ['add', 'delete','index','view','logout','getrack','getshelf','shelf'])) {
+        // users with visitor role
+        if (in_array($this->request->getParam('action'), ['index','view','getrack','getshelf','shelf'])) {
+            if (isset($user['role']) && $user['role'] === 'visitor') {
             return true;
         }
+        }
 
-    // The owner of an article can edit and delete it
-        if (in_array($this->request->getParam('action'), ['delete'])) {
-            $articleId = (int)$this->request->getParam('pass.0');
-
-            if ($this->Colocations->isOwnedBy($articleId, $user['id'])) {
-                return true;
-            }
+        //users with author role
+        if (in_array($this->request->getParam('action'), ['index','view','getrack','getshelf','shelf','delete','add'])) {
+           if (isset($user['role']) && $user['role'] === 'author') {
+            return true;
+        }
         }
 
         return parent::isAuthorized($user);

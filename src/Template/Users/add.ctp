@@ -21,7 +21,7 @@
             echo $this->Form->input('confirm_password',array('type'=>'password'));
 
             echo $this->Form->control('role', [
-            'options' => ['admin' => 'Admin', 'author' => 'Author']
+            'options' => ['admin' => 'Admin', 'author' => 'Author','visitor' => 'Visitor']
         ]);
             
         ?>

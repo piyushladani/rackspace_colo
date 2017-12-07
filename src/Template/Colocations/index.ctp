@@ -9,7 +9,7 @@
     <li class="heading"><?=__('Colocations') ?></li>
     <ul>
         <li><?= $this->Html->link(__('List Colocations'), ['controller' => 'Colocations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Assign Colocation'), ['controller' => 'Colocations', 'action' => 'add']) ?></li>
     </ul>
     <li class="heading"><?=__('Customers') ?></li>
     <ul>

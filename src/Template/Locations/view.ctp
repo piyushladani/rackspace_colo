@@ -73,7 +73,7 @@
                 ->distinct(['Locations.name'])->where(['Locations.id'=>$locid]);
                 $locations=$locations->toArray();
 
-                //counting number of free HU in particular rack
+                //counting number of total/free HU in particular rack
                 $shelfs=$shelf->find();
                 $shelfs->select(['Shelfs.free'])->where(['Shelfs.free'=>'yes','Shelfs.rack_id'=>$rackid]);
                 $freehu = $connection->execute("SELECT he FROM shelfs WHERE shelfs.rack_id=$rackid AND shelfs.free='yes'")->fetchAll('assoc');
